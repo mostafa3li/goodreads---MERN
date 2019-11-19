@@ -30,6 +30,19 @@ const bookSchema = new mongoose.Schema(
   }
 );
 
+//*======================================================================================
+
+//! manipulate book data before sending it
+bookSchema.methods.toJSON = function() {
+  const book = this;
+  const bookObject = book.toObject();
+
+  delete bookObject.photo;
+  return bookObject;
+};
+
+//*======================================================================================
+
 const Book = mongoose.model("Book", bookSchema);
 
 module.exports = Book;

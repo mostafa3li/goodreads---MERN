@@ -3,10 +3,14 @@ const connectDB = require("./config/db");
 
 const app = express();
 
+//*======================================================================================
+
 // Connect Database
 connectDB();
 
 app.use(express.json({ extended: false }));
+
+//*======================================================================================
 
 // app.get("/", (req, res) => res.send("API Running"));
 
@@ -20,6 +24,8 @@ app.use("/adminBooks", require("./routes/admin/adminBooks"));
 app.use("/api/categories", require("./routes/api/categories"));
 app.use("/api/authors", require("./routes/api/authors"));
 app.use("/api/books", require("./routes/api/books"));
+
+//*======================================================================================
 
 const PORT = process.env.PORT || 5000;
 

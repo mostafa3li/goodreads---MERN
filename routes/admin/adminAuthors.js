@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
+const multer = require("multer");
+const sharp = require("sharp");
 
 const Author = require("../../models/Author");
 const auth = require("../../middleware/auth");
@@ -71,6 +73,53 @@ router.patch("/edit/:id", auth, validateAuthor, async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+
+//!======================================================================================
+
+// @route     POST /adminAuthors/addAvatar/:id
+// @desc      Add avatar to Author by author id
+// @access    Private
+//! upload author avatar
+const upload = multer({
+  limits: {
+    fileSize: 1000000
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(
+        new Error("Please upload an image with jpg, jpeg or png format")
+      );
+    }
+    cb(undefined, true);
+  }
+});
+
+router.post(
+  "/addAvatar/:id",
+  auth,
+  upload.single("avatar"),
+  async (req, res) => {
+    if (!req.file) {
+      return res.status(404).send("Please Provide an Image");
+    }
+    const buffer = await sharp(req.file.buffer)
+      .resize({ width: 250, height: 350 })
+      .png()
+      .toBuffer();
+
+    const { id } = req.params;
+    const author = await Author.findOne({ _id: id });
+    if (!author) {
+      return res.status(404).send("The requested Author does not exist ??????");
+    }
+    author.avatar = buffer;
+    await author.save();
+    res.send("Your Image uploaded Successfully");
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  }
+);
 
 //!======================================================================================
 

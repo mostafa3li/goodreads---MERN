@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
+const multer = require("multer");
+const sharp = require("sharp");
 
 const Book = require("../../models/Book");
 const auth = require("../../middleware/auth");
@@ -22,7 +24,7 @@ router.post("/add", auth, validateBook, async (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const { name, category, author, avatar } = req.body;
+  const { name, category, author, photo } = req.body;
 
   try {
     let book = await Book.findOne({ name });
@@ -37,6 +39,56 @@ router.post("/add", auth, validateBook, async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+
+//!======================================================================================
+
+// @route     POST /adminBooks/addPhoto/:id
+// @desc      Add photo to Book by book id
+// @access    Private
+//! upload book photo
+const upload = multer({
+  limits: {
+    fileSize: 1000000
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(
+        new Error("Please upload an image with jpg, jpeg or png format")
+      );
+    }
+    cb(undefined, true);
+  }
+});
+
+router.post(
+  "/addPhoto/:id",
+  auth,
+  upload.single("photo"),
+  async (req, res) => {
+    //* (req.file.buffer) contains a buffer of all of the binary data for that file.
+    //* sharp is async, it takes image and deal with it and we return it back as a buffer again.
+    if (!req.file) {
+      return res.status(404).send("Please Provide an Image");
+    }
+    const buffer = await sharp(req.file.buffer)
+      .resize({ width: 250, height: 250 })
+      .png()
+      .toBuffer();
+
+    const { id } = req.params;
+    const book = await Book.findOne({ _id: id });
+    if (!book) {
+      return res.status(404).send("The requested Book does not exist ??????");
+    }
+    book.photo = buffer;
+    await book.save();
+    res.send("Your Image uploaded Successfully");
+  },
+  (error, req, res, next) => {
+    //* must provide these four args so express can understand that it's to handle errors
+    res.status(400).send({ error: error.message });
+  }
+);
 
 //!======================================================================================
 

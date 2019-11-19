@@ -38,6 +38,25 @@ router.get("/:id", auth, async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+//!======================================================================================
+
+// @route     GET /api/authors/:id/photo
+// @desc      Get Author photo by id
+// @access    Private
+//! get author image
+router.get("/:id/avatar", auth, async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const author = await Author.findById(_id);
+    if (!author.avatar) {
+      throw new Error();
+    }
+    res.set("Content-Type", "image/png"); //* can be neglected, express do it automatically
+    res.send(author.avatar);
+  } catch (error) {
+    res.status(404).send("User or image is not found");
+  }
+});
 
 //*======================================================================================
 

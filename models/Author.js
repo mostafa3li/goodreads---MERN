@@ -35,6 +35,19 @@ authorSchema.virtual("books", {
   foreignField: "author"
 });
 
+//*======================================================================================
+
+//! manipulate author data before sending it
+authorSchema.methods.toJSON = function() {
+  const author = this;
+  const authorObject = author.toObject();
+
+  delete authorObject.avatar;
+  return authorObject;
+};
+
+//*======================================================================================
+
 const Author = mongoose.model("Author", authorSchema);
 
 module.exports = Author;
