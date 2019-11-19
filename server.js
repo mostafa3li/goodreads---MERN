@@ -11,7 +11,9 @@ app.use(express.json({ extended: false }));
 // app.get("/", (req, res) => res.send("API Running"));
 
 // Define Admin Routes
-app.use("/admin", require("./routes/admin/adminAuth"));
+app.use("/adminAuth", require("./routes/admin/adminAuth"));
+app.use("/adminCategories", require("./routes/admin/adminCategories"));
+app.use("/adminAuthors", require("./routes/admin/adminAuthors"));
 
 const PORT = process.env.PORT || 5000;
 

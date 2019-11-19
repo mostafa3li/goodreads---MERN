@@ -7,13 +7,11 @@ const User = require("../../models/User");
 
 //*======================================================================================
 
-// @route     POST /admin/createAdmin
+// @route     POST /adminAuth/createAdmin
 // @desc      Register Admin
 // @access    Public
 const validateAdminRegistery = [
-  check("name", "Name is required")
-    .not()
-    .isEmpty(),
+  check("name", "Name is required").exists(),
   check("email", "Please include a valid email.").isEmail(),
   check("password")
     .isLength({ min: 6 })
@@ -22,8 +20,7 @@ const validateAdminRegistery = [
     .contains("password")
     .withMessage("password must not contains password"),
   check("isAdmin")
-    .not()
-    .isEmpty()
+    .exists()
     .equals("true")
     .withMessage("please add isAdmin as true")
 ];
@@ -34,8 +31,8 @@ router.post("/createAdmin", validateAdminRegistery, async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { email } = req.body;
   try {
+    const { email } = req.body;
     let user = await User.findOne({ email });
 
     if (user) {
@@ -52,7 +49,7 @@ router.post("/createAdmin", validateAdminRegistery, async (req, res) => {
 
 //!======================================================================================
 
-// @route     POST /admin/login
+// @route     POST /adminAuth/login
 // @desc      Login as Admin
 // @access    Public
 const validateAdminLogin = [
@@ -84,7 +81,7 @@ router.post("/login", validateAdminLogin, async (req, res) => {
 
 //!======================================================================================
 
-// @route     POST /admin/logout
+// @route     POST /adminAuth/logout
 // @desc      Logout as Admin (current session)
 // @access    Private
 router.post("/logout", auth, async (req, res) => {
@@ -100,7 +97,7 @@ router.post("/logout", auth, async (req, res) => {
 
 //!======================================================================================
 
-// @route     POST /admin/logoutAll
+// @route     POST /adminAuth/logoutAll
 // @desc      Logout as Admin (all sessions)
 // @access    Private
 router.post("/logoutAll", auth, async (req, res) => {

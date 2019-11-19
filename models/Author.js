@@ -7,16 +7,18 @@ const authorSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
+      lowercase: true,
+      unique: true
     },
-    age: {
+    birthDate: {
       type: Date,
-      default: Date.now,
-      validate(value) {
-        if (value < 0) {
-          throw new Error("Age must be a positive number");
-        }
-      }
+      default: new Date().toISOString().split("T")[0]
+      // validate(value) {
+      //   if (value < Date.now) {
+      //     throw new Error("Birth Date is invalid");
+      //   }
+      // }
     },
     avatar: {
       type: Buffer

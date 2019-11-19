@@ -8,9 +8,8 @@ const User = require("../models/User");
 
 const auth = async (req, res, next) => {
   try {
-    let token = req.header("Authorization").startsWith("Bearer ")
-      ? req.header("Authorization").replace("Bearer ", "")
-      : null;
+    let token = req.header("Authorization");
+    token = token.startsWith("Bearer ") ? token.replace("Bearer ", "") : null;
 
     if (!token) {
       throw new Error();
@@ -33,7 +32,7 @@ const auth = async (req, res, next) => {
 
     next();
 
-    console.log(decoded);
+    // console.log(decoded);
   } catch (error) {
     res.status(401).send({ error: "please authenticate" });
   }
