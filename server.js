@@ -20,10 +20,13 @@ app.use("/adminCategories", require("./routes/admin/adminCategories"));
 app.use("/adminAuthors", require("./routes/admin/adminAuthors"));
 app.use("/adminBooks", require("./routes/admin/adminBooks"));
 
-// Define general Routes
+// Define General Routes
 app.use("/api/categories", require("./routes/api/categories"));
 app.use("/api/authors", require("./routes/api/authors"));
 app.use("/api/books", require("./routes/api/books"));
+
+// Define Users Routes
+app.use("/users", require("./routes/user_routes/users"));
 
 //*======================================================================================
 

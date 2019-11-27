@@ -53,14 +53,19 @@ router.post("/createAdmin", validateAdminRegistery, async (req, res) => {
 // @desc      Login as Admin
 // @access    Public
 const validateAdminLogin = [
-  check("email", "Please include a valid email.").isEmail(),
-  check("password", "Password is required").exists()
+  check("email", "Please include a valid email.")
+    .exists()
+    .isEmail(),
+  check("password")
+    .exists()
+    .matches(/^(\w+\S+)$/)
+    .withMessage("Password is required")
 ];
 
 router.post("/login", validateAdminLogin, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).send({ errors: errors.array() });
   }
 
   const { email, password } = req.body;
@@ -72,9 +77,11 @@ router.post("/login", validateAdminLogin, async (req, res) => {
     res.status(200).send({ user, token });
   } catch (err) {
     res.status(500).send({
-      errors: {
-        msg: "User or Password is incorrect OR you're not authorized"
-      }
+      errors: [
+        {
+          msg: "User or Password is incorrect OR you're not authorized as ADMIN"
+        }
+      ]
     });
   }
 });
