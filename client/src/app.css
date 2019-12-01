@@ -6,6 +6,26 @@
   --success-color: #28a745;
 }
 
+/* ! toast */
+.toast {
+  margin: auto;
+  z-index: 99999999999;
+}
+
+.toast-up {
+  position: absolute;
+  top: 25% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}
+
+.toast-center {
+  position: absolute;
+  top: 65% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}
+
 a {
   color: var(--primary-color);
   text-decoration: none;
@@ -19,8 +39,13 @@ img {
   width: 100%;
 }
 
-.rounded {
-  border-radius: 0.25rem;
+.alert {
+  padding: 2px 8px;
+}
+
+.alert-danger {
+  background: var(--danger-color);
+  color: #fff;
 }
 
 /* Text Styles*/
@@ -54,7 +79,7 @@ img {
 }
 
 /* Padding */
-.p {
+/* .p {
   padding: 0.5rem;
 }
 
@@ -84,10 +109,10 @@ img {
 
 .py-3 {
   padding: 3rem 0;
-}
+} */
 
 /* Margin */
-.m {
+/* .m {
   margin: 0.5rem;
 }
 
@@ -117,8 +142,17 @@ img {
 
 .my-3 {
   margin: 3rem 0;
+} */
+
+/* float */
+/* .float-right {
+  float: right;
 }
 
+.float-left {
+  float: left;
+} */
+/*
 .btn-danger {
   background-color: red;
 }
@@ -178,7 +212,7 @@ img {
   background: #fff;
   color: #333;
   border: #ccc solid 1px;
-}
+} */
 
 /* .btn:hover {
   opacity: 0.8;

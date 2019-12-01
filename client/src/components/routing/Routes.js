@@ -8,17 +8,15 @@ import AdminRoute from "./AdminRoute";
 // Components
 import AdminLogin from "../auth/AdminLogin";
 import AdminDashboard from "../Admin/AdminDashboard";
-import Alert from "../layout/Alert";
+// import Alert from "../layout/Alert";
 
 const Routes = () => {
   return (
-    <section className="container">
-      <Switch>
-        <Route exact path="/admin/login" component={AdminLogin} />
-        <AdminRoute exact path="/admin" component={AdminDashboard} />
-      </Switch>
-      <Alert />
-    </section>
+    <Switch>
+      <Route exact path="/admin/login" component={AdminLogin} />
+      <AdminRoute exact path="/admin" component={AdminDashboard} />
+      {/* <Alert /> */}
+    </Switch>
   );
 };
 export default Routes;

@@ -8,7 +8,7 @@ const app = express();
 // Connect Database
 connectDB();
 
-app.use(express.json({ extended: false }));
+app.use(express.json());
 
 //*======================================================================================
 

@@ -1,27 +1,31 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-// actions
-import { logout } from "../../actions/users";
-
 // layout
 import Spinner from "../layout/Spinner";
+import Navbar from "../layout/Navbar";
 
-const AdminDashboard = ({ logout, users: { loading, user } }) => {
+// components
+import Tabs from "./Tabs";
+// import Categories from "../Admin/Categories";
+
+const AdminDashboard = ({ users: { loading, user } }) => {
   return loading && user === null ? (
     <Spinner />
   ) : (
-    <div className="container">
-      <h1>Admin Dashboard</h1>
-      <button onClick={logout} className="waves-effect waves-light btn red">
-        Logout
-      </button>
-    </div>
+    <Fragment>
+      <Navbar />
+      <section className="container">
+        <h4>Admin Dashboard</h4>
+      </section>
+      <Tabs />
+      {/* <Categories /> */}
+    </Fragment>
   );
 };
 
-AdminDashboard.ProbTypes = {
+AdminDashboard.probTypes = {
   users: PropTypes.object.isRequired
 };
 
@@ -29,4 +33,4 @@ const mapStateToProps = (state) => ({
   users: state.users
 });
 
-export default connect(mapStateToProps, { logout })(AdminDashboard);
+export default connect(mapStateToProps)(AdminDashboard);

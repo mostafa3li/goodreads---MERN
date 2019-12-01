@@ -5,7 +5,8 @@ import {
   LOGIN_FAIL,
   AUTH_ERROR,
   LOGOUT,
-  USER_LOADED
+  USER_LOADED,
+  CLEAR_CATEGORIES
 } from "../actions/types";
 
 // import { setAlert } from "./alert";
@@ -46,14 +47,21 @@ export const adminLogin = (email, password) => async (dispatch) => {
       payload: res.data
     });
 
-    // dispatch(loadUser());
+    dispatch(loadUser());
+    M.toast({
+      html: `Welcome ${res.data.user.name}`,
+      classes: "alert alert-success rounded toast-up"
+    });
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
       // errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-      console.log(errors);
       errors.forEach((error) =>
-        M.toast({ html: error.msg, classes: "alert-danger rounded" })
+        M.toast({
+          html: error.msg,
+          classes: "alert alert-danger rounded"
+          // displayLength: 50000
+        })
       );
     }
     dispatch({ type: LOGIN_FAIL });
@@ -65,4 +73,5 @@ export const adminLogin = (email, password) => async (dispatch) => {
 //! Logout
 export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT });
+  dispatch({ type: CLEAR_CATEGORIES });
 };

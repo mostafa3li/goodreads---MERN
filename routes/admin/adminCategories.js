@@ -11,27 +11,37 @@ const auth = require("../../middleware/auth");
 // @desc      Add Category
 // @access    Private
 const validateCategory = [
-  check("category", "Catogory must be provided").exists()
+  check("category")
+    .exists()
+    .not()
+    .isEmpty()
+    .withMessage("Catogory must be provided")
 ];
 
 router.post("/add", auth, validateCategory, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json(errors);
+    return res.status(400).json({ errors: errors.array() });
   }
 
   try {
     let category = await Category.findOne({ category: req.body.category });
 
     if (category) {
-      throw new Error("Category is already exists");
+      return res.status(406).send({
+        errors: [
+          {
+            msg: "Category Already Exists"
+          }
+        ]
+      });
     }
 
     category = new Category(req.body);
     await category.save();
     res.status(201).send(category);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 });
 
@@ -57,13 +67,27 @@ router.patch("/edit/:id", auth, validateCategory, async (req, res) => {
   try {
     const category = await Category.findOne({ _id: id });
     if (!category) {
-      return res.status(404).send("task not found or You're not authenticated");
+      return res
+        .status(404)
+        .send("Category not found or You're not authenticated");
+    }
+    const existedCategory = await Category.findOne({
+      category: req.body.category
+    });
+    if (existedCategory) {
+      return res.status(406).send({
+        errors: [
+          {
+            msg: "Category Already Exists"
+          }
+        ]
+      });
     }
     updates.forEach((update) => (category[update] = req.body[update]));
     await category.save();
     res.send(category);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 

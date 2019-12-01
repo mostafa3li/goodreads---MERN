@@ -2,9 +2,10 @@ import { combineReducers } from "redux";
 
 import users from "./users";
 import alert from "./alert";
+import categories from "./categories";
 
 export default combineReducers({
-  alert,
   users,
-  Hello: () => "Hello"
+  categories,
+  alert
 });
