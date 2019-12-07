@@ -4,14 +4,33 @@ import {
   GET_CATEGORIES,
   CATEGORIES_ERROR,
   ADD_CATEGORY,
-  EDIT_CATEGORY,
-  DELETE_CATEGORY
+  DELETE_CATEGORY,
+  EDIT_CATEGORY
 } from "./types";
 
 const config = {
   headers: {
     "Content-Type": "application/json"
   }
+};
+
+const handleError = (error, dispatch) => {
+  const errors = error.response.data.errors;
+  if (errors) {
+    errors.forEach((error) =>
+      M.toast({
+        html: error.msg,
+        classes: "alert alert-danger rounded"
+      })
+    );
+  }
+  dispatch({
+    type: CATEGORIES_ERROR,
+    payload: {
+      msg: error.response.statusText,
+      status: error.response.status
+    }
+  });
 };
 
 //! get all categories
@@ -23,13 +42,7 @@ export const getCategories = () => async (dispatch) => {
       payload: res.data
     });
   } catch (error) {
-    dispatch({
-      type: CATEGORIES_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
-    });
+    handleError(error, dispatch);
   }
 };
 
@@ -43,26 +56,11 @@ export const addCategory = (category) => async (dispatch) => {
       payload: res.data
     });
     M.toast({
-      html: `Category "${res.data.category}" added Successfully`,
-      classes: "alert alert-success rounded toast-up"
+      html: `Category "${res.data.category}" has been Added Successfully`,
+      classes: "alert bg-success text-white rounded"
     });
   } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.forEach((error) =>
-        M.toast({
-          html: error.msg,
-          classes: "alert alert-danger rounded toast-up"
-        })
-      );
-    }
-    dispatch({
-      type: CATEGORIES_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
-    });
+    handleError(error, dispatch);
   }
 };
 
@@ -76,16 +74,10 @@ export const deleteCategory = (_id) => async (dispatch) => {
     });
     M.toast({
       html: res.data,
-      classes: "alert alert-success rounded toast-up"
+      classes: "alert bg-success text-white rounded"
     });
   } catch (error) {
-    dispatch({
-      type: CATEGORIES_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
-    });
+    handleError(error, dispatch);
   }
 };
 
@@ -102,24 +94,9 @@ export const editCategory = (categoryData) => async (dispatch) => {
     });
     M.toast({
       html: "Category Updated Successfully",
-      classes: "alert alert-success rounded toast-up"
+      classes: "alert bg-success text-white rounded"
     });
   } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.forEach((error) =>
-        M.toast({
-          html: error.msg,
-          classes: "alert alert-danger rounded toast-up"
-        })
-      );
-    }
-    dispatch({
-      type: CATEGORIES_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
-    });
+    handleError(error, dispatch);
   }
 };

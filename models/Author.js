@@ -22,6 +22,10 @@ const authorSchema = new mongoose.Schema(
     },
     avatar: {
       type: Buffer
+    },
+    hasAvatar: {
+      type: Boolean,
+      default: false
     }
   },
   {

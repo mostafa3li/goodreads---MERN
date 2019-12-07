@@ -40,15 +40,15 @@ router.get("/:id", auth, async (req, res) => {
 });
 //!======================================================================================
 
-// @route     GET /api/authors/:id/photo
+// @route     GET /api/authors/:id/avatar
 // @desc      Get Author photo by id
 // @access    Private
 //! get author image
-router.get("/:id/avatar", auth, async (req, res) => {
+router.get("/:id/avatar", async (req, res) => {
   const _id = req.params.id;
   try {
     const author = await Author.findById(_id);
-    if (!author.avatar) {
+    if (!author || !author.avatar) {
       throw new Error();
     }
     res.set("Content-Type", "image/png"); //* can be neglected, express do it automatically

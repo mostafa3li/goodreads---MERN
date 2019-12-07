@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
-import { FormControl, InputLabel, OutlinedInput } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 
 // actions
 import { addCategory } from "../../../actions/categories";

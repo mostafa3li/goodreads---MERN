@@ -8,7 +8,6 @@ import Navbar from "../layout/Navbar";
 
 // components
 import Tabs from "./Tabs";
-// import Categories from "../Admin/Categories";
 
 const AdminDashboard = ({ users: { loading, user } }) => {
   return loading && user === null ? (
@@ -17,10 +16,9 @@ const AdminDashboard = ({ users: { loading, user } }) => {
     <Fragment>
       <Navbar />
       <section className="container">
-        <h4>Admin Dashboard</h4>
+        <h3 className="my-3 text-center">Admin Dashboard</h3>
       </section>
       <Tabs />
-      {/* <Categories /> */}
     </Fragment>
   );
 };

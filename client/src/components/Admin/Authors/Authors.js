@@ -4,20 +4,20 @@ import { connect } from "react-redux";
 import { Table } from "react-bootstrap";
 
 // actions
-import { getCategories } from "../../../actions/categories";
+import { getAuthors } from "../../../actions/authors";
 
 // layout
-import AddCategoriesModal from "../Modals/AddCategories";
+import AddAuthorsModal from "../Modals/AddAuthors";
 
-// components
-import CategoryItem from "./CategoryItem";
+// Components
+import AuthorItem from "./AuthorItem";
 
-const Categories = ({ getCategories }) => {
+const Authors = ({ getAuthors }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+    getAuthors();
+  }, [getAuthors]);
 
   return (
     <div className="mx-3">
@@ -26,9 +26,9 @@ const Categories = ({ getCategories }) => {
           className="btn btn-primary"
           onClick={() => setIsModalOpen(true)}
         >
-          Add Category
+          Add Author
         </button>
-        <AddCategoriesModal
+        <AddAuthorsModal
           show={isModalOpen}
           onHide={() => setIsModalOpen(false)}
         />
@@ -37,20 +37,23 @@ const Categories = ({ getCategories }) => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Photo</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Birth</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <CategoryItem isModalOpen={isModalOpen} />
+          <AuthorItem isModalOpen={isModalOpen} />
         </tbody>
       </Table>
     </div>
   );
 };
 
-Categories.probTypes = {
-  getCategories: PropTypes.func.isRequired
+Authors.probTypes = {
+  getAuthors: PropTypes.func.isRequired
 };
 
-export default connect(null, { getCategories })(Categories);
+export default connect(null, { getAuthors })(Authors);

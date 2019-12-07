@@ -6,7 +6,8 @@ import {
   AUTH_ERROR,
   LOGOUT,
   USER_LOADED,
-  CLEAR_CATEGORIES
+  CLEAR_CATEGORIES,
+  CLEAR_AUTHORS
 } from "../actions/types";
 
 // import { setAlert } from "./alert";
@@ -49,8 +50,8 @@ export const adminLogin = (email, password) => async (dispatch) => {
 
     dispatch(loadUser());
     M.toast({
-      html: `Welcome ${res.data.user.name}`,
-      classes: "alert alert-success rounded toast-up"
+      html: `Welcome back "${res.data.user.name}"`,
+      classes: "alert text-white rounded lead bg-success"
     });
   } catch (error) {
     const errors = error.response.data.errors;
@@ -74,4 +75,5 @@ export const adminLogin = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT });
   dispatch({ type: CLEAR_CATEGORIES });
+  dispatch({ type: CLEAR_AUTHORS });
 };

@@ -59,7 +59,7 @@ const validateAdminLogin = [
   check("password")
     .exists()
     .matches(/^(\w+\S+)$/)
-    .withMessage("Password is required")
+    .withMessage("Password is required.")
 ];
 
 router.post("/login", validateAdminLogin, async (req, res) => {

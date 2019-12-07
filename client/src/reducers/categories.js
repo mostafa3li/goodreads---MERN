@@ -19,18 +19,10 @@ export default function(state = initialState, actions) {
 
   switch (type) {
     case GET_CATEGORIES:
-      return {
-        ...state,
-        categories: payload,
-        loading: false
-      };
+      return { ...state, categories: payload, loading: false };
 
     case CATEGORIES_ERROR:
-      return {
-        ...state,
-        error: payload,
-        loading: false
-      };
+      return { ...state, error: payload, loading: false };
 
     case ADD_CATEGORY:
       return {

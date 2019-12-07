@@ -13,8 +13,12 @@ const auth = require("../../middleware/auth");
 // @desc      Add Author
 // @access    Private
 const validateAuthor = [
-  check("name", "Author name is required").exists(),
-  check("birthDate", "Valid Date format is YYYY-MM-DD")
+  check("name")
+    .exists()
+    .not()
+    .isEmpty()
+    .withMessage("Author name is required"),
+  check("birthDate", "Valid Date format is MM-DD-YYYY")
     .isISO8601()
     .optional()
 ];
@@ -22,21 +26,27 @@ const validateAuthor = [
 router.post("/add", auth, validateAuthor, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json(errors);
+    return res.status(400).json({ errors: errors.array() });
   }
 
   try {
     let author = await Author.findOne({ name: req.body.name });
 
     if (author) {
-      throw new Error("Author is already exists");
+      return res.status(406).send({
+        errors: [
+          {
+            msg: "Author Already Exists"
+          }
+        ]
+      });
     }
 
     author = new Author(req.body);
     await author.save();
     res.status(201).send(author);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 });
 
@@ -47,7 +57,7 @@ router.post("/add", auth, validateAuthor, async (req, res) => {
 // @access    Private
 router.patch("/edit/:id", auth, validateAuthor, async (req, res) => {
   //*
-  const allowedUpdates = ["name", "birthDate", "avatar"];
+  const allowedUpdates = ["name", "birthDate"];
   const updates = Object.keys(req.body);
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
@@ -113,8 +123,10 @@ router.post(
       return res.status(404).send("The requested Author does not exist ??????");
     }
     author.avatar = buffer;
+    author.hasAvatar = true;
     await author.save();
-    res.send("Your Image uploaded Successfully");
+    // res.send("Your Image uploaded Successfully")
+    res.send(author);
   },
   (error, req, res, next) => {
     res.status(400).send({ error: error.message });
@@ -124,7 +136,7 @@ router.post(
 //!======================================================================================
 
 // @route     DELETE /adminAuthors/delete/:id
-// @desc      DELETE Category
+// @desc      DELETE Author
 // @access    Private
 router.delete("/delete/:id", auth, async (req, res) => {
   const { id } = req.params;
@@ -133,7 +145,7 @@ router.delete("/delete/:id", auth, async (req, res) => {
     if (!author) {
       res.status(404).send("Author not founded or You're not authenticated");
     }
-    res.send(`"${author.name}" deleted Successfuly`);
+    res.send(`Author "${author.name}" has been deleted Successfuly`);
   } catch (error) {
     res.status(500).send(error);
   }

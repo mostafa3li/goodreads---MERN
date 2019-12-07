@@ -18,14 +18,14 @@ const CategoryItem = ({
   const [categoryId, setCategoryId] = useState("");
   const [editMode, setEditMode] = useState(false);
 
-  const onChange = (e) => {
-    setCategoryName(e.target.value);
-  };
-
   const onEditHandler = (oldCategoryName, id) => {
     setCategoryId(id);
     setCategoryName(oldCategoryName);
     setEditMode(true);
+  };
+
+  const onChange = (e) => {
+    setCategoryName(e.target.value);
   };
 
   const cancelEditHandler = () => {
@@ -42,24 +42,23 @@ const CategoryItem = ({
   };
 
   return loading ? (
-    <Spinner />
+    <tr>
+      <td>
+        <Spinner />
+      </td>
+    </tr>
   ) : (
     categories.map((category) => (
       <tr key={category._id}>
-        <td style={{ width: "20%" }}>{category._id.substr(-5)}</td>
-        <td className="text-capitalize" style={{ width: "40%" }}>
-          {/*  if EditMode will render the value inside an input to edit it */}
+        <td style={{ width: "20%" }} className="align-middle">
+          {/* //! ID , submit/cancel edit  */}
           {editMode && categoryId === category._id ? (
             <Fragment>
-              <TextField
-                type="text"
-                name="category"
-                value={categoryName}
-                autoFocus
-                onChange={(e) => onChange(e)}
-              />
-              <button onClick={() => cancelEditHandler()}>&#10006;</button>
+              <button title="Cancel" onClick={() => cancelEditHandler()}>
+                &#10006;
+              </button>
               <button
+                title="Submit"
                 onClick={() =>
                   submitEditHandler(category.category, {
                     categoryName,
@@ -71,11 +70,28 @@ const CategoryItem = ({
               </button>
             </Fragment>
           ) : (
+            category._id.substr(-5)
+          )}
+        </td>
+        {/* //! Category, edit category */}
+        <td className="text-capitalize align-middle" style={{ width: "40%" }}>
+          {/*  if EditMode will render the value inside an input to edit it */}
+          {editMode && categoryId === category._id ? (
+            <TextField
+              className="mx-2"
+              type="text"
+              name="category"
+              value={categoryName}
+              autoFocus
+              onChange={(e) => onChange(e)}
+            />
+          ) : (
             //* else will render the value
             category.category
           )}
         </td>
-        <td style={{ width: "40%" }}>
+        {/* //! actions edit/delete */}
+        <td style={{ width: "40%" }} className="align-middle">
           <button
             className="btn btn-info mx-2"
             onClick={() => onEditHandler(category.category, category._id)}
