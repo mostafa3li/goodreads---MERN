@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Table } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 
 // actions
 import { getAuthors } from "../../../actions/authors";

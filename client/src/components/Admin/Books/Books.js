@@ -4,20 +4,20 @@ import { connect } from "react-redux";
 import Table from "react-bootstrap/Table";
 
 // actions
-import { getCategories } from "../../../actions/categories";
+import { getBooks } from "../../../actions/books";
 
 // layout
-import AddCategoriesModal from "../Modals/AddCategories";
+import AddBooksModal from "../Modals/AddBooks";
 
 // components
-import CategoryItem from "./CategoryItem";
+import BookItem from "./BookItem";
 
-const Categories = ({ getCategories }) => {
+const Books = ({ getBooks }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+    getBooks();
+  }, [getBooks]);
 
   return (
     <div className="mx-3">
@@ -26,9 +26,9 @@ const Categories = ({ getCategories }) => {
           className="btn btn-primary"
           onClick={() => setIsModalOpen(true)}
         >
-          Add Category
+          Add Book
         </button>
-        <AddCategoriesModal
+        <AddBooksModal
           show={isModalOpen}
           onHide={() => setIsModalOpen(false)}
         />
@@ -37,20 +37,23 @@ const Categories = ({ getCategories }) => {
         <thead>
           <tr>
             <th>ID</th>
+            <th>Photo</th>
             <th>Name</th>
+            <th>Category</th>
+            <th>Author</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <CategoryItem isModalOpen={isModalOpen} />
+          <BookItem isModalOpen={isModalOpen} />
         </tbody>
       </Table>
     </div>
   );
 };
 
-Categories.probTypes = {
-  getCategories: PropTypes.func.isRequired
+Books.propTypes = {
+  getBooks: PropTypes.func.isRequired
 };
 
-export default connect(null, { getCategories })(Categories);
+export default connect(null, { getBooks })(Books);

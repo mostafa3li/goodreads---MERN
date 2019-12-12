@@ -46,9 +46,9 @@ router.get("/:id", auth, async (req, res) => {
 
 // @route     GET /api/books/:id/photo
 // @desc      Get Book photo by id
-// @access    Private
+// @access    Public
 //! get book image
-router.get("/:id/photo", auth, async (req, res) => {
+router.get("/:id/photo", async (req, res) => {
   const _id = req.params.id;
   try {
     const book = await Book.findById(_id);

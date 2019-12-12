@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Moment from "react-moment";
@@ -79,6 +79,12 @@ const AuthorItem = ({
         <Spinner />
       </td>
     </tr>
+  ) : authors.length <= 0 ? (
+    <tr>
+      <td colSpan="6">
+        <h1>Your Library Has No Authors Yet!</h1>
+      </td>
+    </tr>
   ) : (
     authors.map((author) => {
       const firstName =
@@ -93,30 +99,9 @@ const AuthorItem = ({
 
       return (
         <tr key={author._id}>
-          {/* //! ID , submit/cancel edit  */}
+          {/* //! ID */}
           <td style={{ width: "10%" }} className="align-middle">
-            {editMode && authorId === author._id ? (
-              <Fragment>
-                <button title="Cancel" onClick={() => cancelEditHandler()}>
-                  &#10006;
-                </button>
-                <button
-                  title="Submit"
-                  onClick={() =>
-                    submitEditHandler({
-                      _id: author._id,
-                      oldFName: firstName,
-                      oldLName: lastName,
-                      oldBirthDate: author.birthDate.slice(0, 10)
-                    })
-                  }
-                >
-                  &#10004;
-                </button>
-              </Fragment>
-            ) : (
-              author._id.substr(-5)
-            )}
+            {author._id.substr(-5)}
           </td>
           {/* //! Author Photo, edit photo */}
           <td style={{ width: "15%" }} className="align-middle">
@@ -133,7 +118,7 @@ const AuthorItem = ({
             )}
           </td>
           {/* //! First Name, edit first name */}
-          <td className="text-capitalize align-middle" style={{ width: "15%" }}>
+          <td style={{ width: "15%" }} className="text-capitalize align-middle">
             {editMode && authorId === author._id ? (
               <Fragment>
                 <TextField
@@ -148,7 +133,7 @@ const AuthorItem = ({
             )}
           </td>
           {/* //! Last Name, edit last name */}
-          <td className="text-capitalize align-middle" style={{ width: "15%" }}>
+          <td style={{ width: "15%" }} className="text-capitalize align-middle">
             {editMode && authorId === author._id ? (
               <Fragment>
                 <TextField
@@ -161,7 +146,7 @@ const AuthorItem = ({
               lastName
             )}
           </td>
-          {/* //! Date of Birth, edit date iof birth */}
+          {/* //! Date of Birth, edit date of birth */}
           <td style={{ width: "20%" }} className="align-middle">
             {editMode && authorId === author._id ? (
               <Input
@@ -174,16 +159,42 @@ const AuthorItem = ({
               <Moment format="YYYY-MM-DD">{author.birthDate}</Moment>
             )}
           </td>
-          {/* //! actions edit/delete */}
+          {/* //! actions edit/delete, submit/cancel edit */}
           <td style={{ width: "20%" }} className="align-middle">
-            <button
-              className="btn btn-info mx-2"
-              onClick={() =>
-                onEditHandler(firstName, lastName, author.birthDate, author._id)
-              }
-            >
-              Edit
-            </button>
+            {editMode && authorId === author._id ? (
+              <div className="mr-3 d-inline">
+                <button title="Cancel" onClick={() => cancelEditHandler()}>
+                  &#10006;
+                </button>
+                <button
+                  title="Submit"
+                  onClick={() =>
+                    submitEditHandler({
+                      _id: author._id,
+                      oldFName: firstName,
+                      oldLName: lastName,
+                      oldBirthDate: author.birthDate.slice(0, 10)
+                    })
+                  }
+                >
+                  &#10004;
+                </button>
+              </div>
+            ) : (
+              <button
+                className="btn btn-info mx-2"
+                onClick={() =>
+                  onEditHandler(
+                    firstName,
+                    lastName,
+                    author.birthDate,
+                    author._id
+                  )
+                }
+              >
+                Edit
+              </button>
+            )}
             <button
               className="btn btn-danger mx-2"
               onClick={() => deleteAuthor(author._id)}

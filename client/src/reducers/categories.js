@@ -3,8 +3,8 @@ import {
   CATEGORIES_ERROR,
   ADD_CATEGORY,
   EDIT_CATEGORY,
-  CLEAR_CATEGORIES,
-  DELETE_CATEGORY
+  DELETE_CATEGORY,
+  CLEAR_CATEGORIES
 } from "../actions/types";
 
 const initialState = {
@@ -14,8 +14,8 @@ const initialState = {
   error: {}
 };
 
-export default function(state = initialState, actions) {
-  const { type, payload } = actions;
+export default function(state = initialState, action) {
+  const { type, payload } = action;
 
   switch (type) {
     case GET_CATEGORIES:

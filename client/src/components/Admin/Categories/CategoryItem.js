@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
@@ -47,31 +47,18 @@ const CategoryItem = ({
         <Spinner />
       </td>
     </tr>
+  ) : categories.length <= 0 ? (
+    <tr>
+      <td colSpan="3">
+        <h1>Your Library Has No Categories Yet!</h1>
+      </td>
+    </tr>
   ) : (
     categories.map((category) => (
       <tr key={category._id}>
+        {/* //! ID */}
         <td style={{ width: "20%" }} className="align-middle">
-          {/* //! ID , submit/cancel edit  */}
-          {editMode && categoryId === category._id ? (
-            <Fragment>
-              <button title="Cancel" onClick={() => cancelEditHandler()}>
-                &#10006;
-              </button>
-              <button
-                title="Submit"
-                onClick={() =>
-                  submitEditHandler(category.category, {
-                    categoryName,
-                    _id: category._id
-                  })
-                }
-              >
-                &#10004;
-              </button>
-            </Fragment>
-          ) : (
-            category._id.substr(-5)
-          )}
+          {category._id.substr(-5)}
         </td>
         {/* //! Category, edit category */}
         <td className="text-capitalize align-middle" style={{ width: "40%" }}>
@@ -90,14 +77,33 @@ const CategoryItem = ({
             category.category
           )}
         </td>
-        {/* //! actions edit/delete */}
+        {/* //! actions edit/delete , submit/cancel edit */}
         <td style={{ width: "40%" }} className="align-middle">
-          <button
-            className="btn btn-info mx-2"
-            onClick={() => onEditHandler(category.category, category._id)}
-          >
-            Edit
-          </button>
+          {editMode && categoryId === category._id ? (
+            <div className="mr-5 d-inline">
+              <button title="Cancel" onClick={() => cancelEditHandler()}>
+                &#10006;
+              </button>
+              <button
+                title="Submit"
+                onClick={() =>
+                  submitEditHandler(category.category, {
+                    categoryName,
+                    _id: category._id
+                  })
+                }
+              >
+                &#10004;
+              </button>
+            </div>
+          ) : (
+            <button
+              className="btn btn-info mx-2"
+              onClick={() => onEditHandler(category.category, category._id)}
+            >
+              Edit
+            </button>
+          )}
           <button
             className="btn btn-danger mx-2"
             onClick={() => deleteCategory(category._id)}
@@ -111,9 +117,9 @@ const CategoryItem = ({
 };
 
 CategoryItem.propTypes = {
+  categories: PropTypes.object.isRequired,
   deleteCategory: PropTypes.func.isRequired,
-  editCategory: PropTypes.func.isRequired,
-  categories: PropTypes.object.isRequired
+  editCategory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

@@ -13,8 +13,8 @@ const initialState = {
   user: null
 };
 
-export default function(state = initialState, actions) {
-  const { type, payload } = actions;
+export default function(state = initialState, action) {
+  const { type, payload } = action;
 
   switch (type) {
     case USER_LOADED:
@@ -28,8 +28,9 @@ export default function(state = initialState, actions) {
     case LOGIN_SUCCESS:
       localStorage.setItem("token", payload.token);
       return {
-        ...payload,
+        // ...payload,
         ...state,
+        token: payload.token,
         isAuthenticated: true,
         loading: false
       };

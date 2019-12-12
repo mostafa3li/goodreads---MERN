@@ -13,9 +13,18 @@ const auth = require("../../middleware/auth");
 // @desc      Add Book
 // @access    Private
 const validateBook = [
-  check("name", "Book name is required").exists(),
-  check("category", "Category is required").exists(),
-  check("author", "author name is required").exists()
+  check("name", "Book Name is required")
+    .exists()
+    .not()
+    .isEmpty(),
+  check("category", "Category Name is required")
+    .exists()
+    .not()
+    .isEmpty(),
+  check("author", "Author Name is required")
+    .exists()
+    .not()
+    .isEmpty()
 ];
 
 router.post("/add", auth, validateBook, async (req, res) => {
@@ -24,19 +33,29 @@ router.post("/add", auth, validateBook, async (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const { name, category, author, photo } = req.body;
+  const { name } = req.body;
 
   try {
     let book = await Book.findOne({ name });
     if (book) {
-      throw new Error("Book is already exists");
+      return res.status(406).send({
+        errors: [
+          {
+            msg: "Book Already Exists"
+          }
+        ]
+      });
     }
 
     book = new Book(req.body);
     await book.save();
+    book = await Book.findById(book._id)
+      .populate("category")
+      .populate("author")
+      .exec();
     res.status(201).send(book);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 
@@ -81,8 +100,10 @@ router.post(
       return res.status(404).send("The requested Book does not exist ??????");
     }
     book.photo = buffer;
+    book.hasPhoto = true;
     await book.save();
-    res.send("Your Image uploaded Successfully");
+    // res.send("Your Image uploaded Successfully");
+    res.send(book);
   },
   (error, req, res, next) => {
     //* must provide these four args so express can understand that it's to handle errors
@@ -112,13 +133,18 @@ router.patch("/edit/:id", auth, validateBook, async (req, res) => {
   try {
     const book = await Book.findOne({ _id: id });
     if (!book) {
-      return res.status(404).send("task not found or You're not authenticated");
+      return res.status(404).send("book not found or You're not authenticated");
     }
     updates.forEach((update) => (book[update] = req.body[update]));
     await book.save();
-    res.send(book);
+
+    const updatedBook = await Book.findById({ _id: id })
+      .populate("category")
+      .populate("author")
+      .exec();
+    res.send(updatedBook);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 

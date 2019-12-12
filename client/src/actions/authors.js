@@ -10,8 +10,6 @@ import {
   ADD_AUTHOR_IMAGE
 } from "./types";
 
-import store from "../store";
-
 const config = {
   headers: {
     "Content-Type": "application/json"
@@ -90,7 +88,7 @@ export const addAuthor = (authorData, authorImage) => async (dispatch) => {
     });
 
     if (authorImage) {
-      store.dispatch(addAuthorImage(res.data._id, authorImage));
+      dispatch(addAuthorImage(res.data._id, authorImage));
     }
 
     M.toast({

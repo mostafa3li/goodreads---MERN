@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Modal, Button } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -8,12 +10,10 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 // actions
 import { addCategory } from "../../../actions/categories";
 
-const AddCategories = ({ addCategory, error, ...props }) => {
+const AddCategories = ({ addCategory, ...props }) => {
   const [category, setCategory] = useState("");
 
-  const onChange = (e) => {
-    setCategory(e.target.value);
-  };
+  const onChange = (e) => setCategory(e.target.value);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -44,6 +44,7 @@ const AddCategories = ({ addCategory, error, ...props }) => {
             className="col-6 mx-auto text-center"
           >
             <div>
+              {/* //! Category Name */}
               <FormControl variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-category">
                   Category
@@ -78,8 +79,8 @@ const AddCategories = ({ addCategory, error, ...props }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  error: state.categories.error
-});
+AddCategories.propTypes = {
+  addCategory: PropTypes.func.isRequired
+};
 
-export default connect(mapStateToProps, { addCategory })(AddCategories);
+export default connect(null, { addCategory })(AddCategories);

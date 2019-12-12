@@ -42,7 +42,7 @@ router.get("/:id", auth, async (req, res) => {
 
 // @route     GET /api/authors/:id/avatar
 // @desc      Get Author photo by id
-// @access    Private
+// @access    Public
 //! get author image
 router.get("/:id/avatar", async (req, res) => {
   const _id = req.params.id;

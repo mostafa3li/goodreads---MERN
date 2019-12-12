@@ -1,5 +1,6 @@
 import axios from "axios";
 import M from "materialize-css";
+
 import {
   GET_CATEGORIES,
   CATEGORIES_ERROR,

@@ -2,8 +2,8 @@ import {
   GET_AUTHORS,
   AUTHORS_ERROR,
   ADD_AUTHOR,
-  DELETE_AUTHOR,
   EDIT_AUTHOR,
+  DELETE_AUTHOR,
   CLEAR_AUTHORS,
   ADD_AUTHOR_IMAGE
 } from "../actions/types";
@@ -15,8 +15,8 @@ const initialState = {
   error: {}
 };
 
-export default function(state = initialState, actions) {
-  const { type, payload } = actions;
+export default function(state = initialState, action) {
+  const { type, payload } = action;
 
   switch (type) {
     case GET_AUTHORS:

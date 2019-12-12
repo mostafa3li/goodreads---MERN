@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Modal, Button } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import FilledInput from "@material-ui/core/FilledInput";
@@ -10,7 +11,7 @@ import TextField from "@material-ui/core/TextField";
 // actions
 import { addAuthor } from "../../../actions/authors";
 
-const AddAuthors = ({ addAuthor, addAuthorImage, ...props }) => {
+const AddAuthors = ({ addAuthor, ...props }) => {
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -18,15 +19,11 @@ const AddAuthors = ({ addAuthor, addAuthorImage, ...props }) => {
   });
   const [authorImage, setAuthorImage] = useState("");
 
-  const { fName, lName, birthDate } = formData;
-
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onImageChange = (e) => {
-    setAuthorImage(e.target.files[0]);
-  };
+  const onImageChange = (e) => setAuthorImage(e.target.files[0]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +34,8 @@ const AddAuthors = ({ addAuthor, addAuthorImage, ...props }) => {
       setAuthorImage("");
     }
   };
+
+  const { fName, lName, birthDate } = formData;
 
   return (
     <div>
@@ -57,6 +56,7 @@ const AddAuthors = ({ addAuthor, addAuthorImage, ...props }) => {
             className="col-8 mx-auto text-center"
           >
             <div className="row justify-content-around form-group">
+              {/* //! First Name */}
               <TextField
                 onChange={(e) => onChange(e)}
                 label="First Name"
@@ -64,6 +64,7 @@ const AddAuthors = ({ addAuthor, addAuthorImage, ...props }) => {
                 name="fName"
                 value={fName}
               />
+              {/* //! Last Name */}
               <TextField
                 onChange={(e) => onChange(e)}
                 label="Last Name"
@@ -73,6 +74,7 @@ const AddAuthors = ({ addAuthor, addAuthorImage, ...props }) => {
               />
             </div>
             <div className="row">
+              {/* //! Birthdate */}
               <div className="col-6">
                 <FormControl className="w-100">
                   <InputLabel shrink>Date of Birth</InputLabel>
@@ -85,6 +87,7 @@ const AddAuthors = ({ addAuthor, addAuthorImage, ...props }) => {
                   />
                 </FormControl>
               </div>
+              {/* //! Author Image */}
               <div className="col-6">
                 <FormControl>
                   <InputLabel shrink>Author Image</InputLabel>

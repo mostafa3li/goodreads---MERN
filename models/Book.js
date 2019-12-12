@@ -23,6 +23,10 @@ const bookSchema = new mongoose.Schema(
     },
     photo: {
       type: Buffer
+    },
+    hasPhoto: {
+      type: Boolean,
+      default: false
     }
   },
   {

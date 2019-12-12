@@ -4,10 +4,11 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   AUTH_ERROR,
-  LOGOUT,
   USER_LOADED,
   CLEAR_CATEGORIES,
-  CLEAR_AUTHORS
+  CLEAR_AUTHORS,
+  CLEAR_BOOKS,
+  LOGOUT
 } from "../actions/types";
 
 // import { setAlert } from "./alert";
@@ -73,7 +74,8 @@ export const adminLogin = (email, password) => async (dispatch) => {
 
 //! Logout
 export const logout = () => (dispatch) => {
-  dispatch({ type: LOGOUT });
   dispatch({ type: CLEAR_CATEGORIES });
   dispatch({ type: CLEAR_AUTHORS });
+  dispatch({ type: CLEAR_BOOKS });
+  dispatch({ type: LOGOUT });
 };

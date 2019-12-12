@@ -12,7 +12,7 @@ const DashboardNavbar = ({ logout }) => {
       <div className="container">
         <Navbar.Brand>
           <Link to="/admin" className="brand-logo">
-            Logo
+            goodreads
           </Link>
         </Navbar.Brand>
         {/* <Nav className="mr-auto">

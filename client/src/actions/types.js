@@ -23,3 +23,12 @@ export const ADD_AUTHOR_IMAGE = "ADD_AUTHOR_IMAGE";
 export const EDIT_AUTHOR = "EDIT_AUTHOR";
 export const DELETE_AUTHOR = "DELETE_AUTHOR";
 export const CLEAR_AUTHORS = "CLEAR_AUTHORS";
+
+//*--- Books ---*\\
+export const GET_BOOKS = "GET_BOOKS";
+export const BOOKS_ERROR = "BOOKS_ERROR";
+export const ADD_BOOK = "ADD_BOOK";
+export const ADD_BOOK_IMAGE = "ADD_BOOK_IMAGE";
+export const EDIT_BOOK = "EDIT_BOOK";
+export const DELETE_BOOK = "DELETE_BOOK";
+export const CLEAR_BOOKS = "CLEAR_BOOKS";
