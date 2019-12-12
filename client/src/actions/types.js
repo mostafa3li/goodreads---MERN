@@ -32,3 +32,4 @@ export const ADD_BOOK_IMAGE = "ADD_BOOK_IMAGE";
 export const EDIT_BOOK = "EDIT_BOOK";
 export const DELETE_BOOK = "DELETE_BOOK";
 export const CLEAR_BOOKS = "CLEAR_BOOKS";
+export const DELETE_RELATED_BOOKS = "DELETE_RELATED_BOOKS";

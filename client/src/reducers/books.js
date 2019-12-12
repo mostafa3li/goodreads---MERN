@@ -5,7 +5,8 @@ import {
   EDIT_BOOK,
   DELETE_BOOK,
   CLEAR_BOOKS,
-  ADD_BOOK_IMAGE
+  ADD_BOOK_IMAGE,
+  DELETE_RELATED_BOOKS
 } from "../actions/types";
 
 const initialState = {
@@ -54,6 +55,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         books: state.books.filter((book) => book._id !== payload),
+        loading: false
+      };
+
+    case DELETE_RELATED_BOOKS:
+      const { relation } = payload;
+      return {
+        ...state,
+        books: state.books.filter((book) => book[relation]._id !== payload._id),
         loading: false
       };
 

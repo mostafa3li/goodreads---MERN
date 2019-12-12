@@ -6,7 +6,8 @@ import {
   CATEGORIES_ERROR,
   ADD_CATEGORY,
   DELETE_CATEGORY,
-  EDIT_CATEGORY
+  EDIT_CATEGORY,
+  DELETE_RELATED_BOOKS
 } from "./types";
 
 const config = {
@@ -72,6 +73,10 @@ export const deleteCategory = (_id) => async (dispatch) => {
     dispatch({
       type: DELETE_CATEGORY,
       payload: _id
+    });
+    dispatch({
+      type: DELETE_RELATED_BOOKS,
+      payload: { relation: "category", _id }
     });
     M.toast({
       html: res.data,

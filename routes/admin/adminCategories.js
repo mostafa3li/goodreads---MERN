@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
 const Category = require("../../models/Category");
+const Book = require("../../models/Book");
 const auth = require("../../middleware/auth");
 
 //*======================================================================================
@@ -103,7 +104,10 @@ router.delete("/delete/:id", auth, async (req, res) => {
     if (!category) {
       res.status(404).send("Category not founded or You're not authenticated");
     }
-    res.send(`Category "${category.category}" Deleted Successfuly`);
+    await Book.deleteMany({ category: id });
+    res.send(
+      `Category "${category.category}" & all related Books has been Deleted Successfuly`
+    );
   } catch (error) {
     res.status(500).send(error);
   }

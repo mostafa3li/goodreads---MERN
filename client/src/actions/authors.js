@@ -7,7 +7,8 @@ import {
   ADD_AUTHOR,
   DELETE_AUTHOR,
   EDIT_AUTHOR,
-  ADD_AUTHOR_IMAGE
+  ADD_AUTHOR_IMAGE,
+  DELETE_RELATED_BOOKS
 } from "./types";
 
 const config = {
@@ -107,6 +108,10 @@ export const deleteAuthor = (_id) => async (dispatch) => {
     dispatch({
       type: DELETE_AUTHOR,
       payload: _id
+    });
+    dispatch({
+      type: DELETE_RELATED_BOOKS,
+      payload: { relation: "author", _id }
     });
     M.toast({
       html: res.data,
