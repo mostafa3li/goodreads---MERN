@@ -17,10 +17,10 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 // actions
-import { adminLogin } from "../../actions/users";
+import { adminLogin } from "../../../actions/users";
 
 // layout
-import Spinner from "../layout/Spinner";
+import Spinner from "../../layout/Spinner";
 
 import "./AdminLogin.css";
 

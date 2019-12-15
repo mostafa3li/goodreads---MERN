@@ -2,4 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+// Redux
+import { Provider } from "react-redux";
+import store from "./store";
+
+const goodreadsApp = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+ReactDOM.render(goodreadsApp, document.getElementById("root"));

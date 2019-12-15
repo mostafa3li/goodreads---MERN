@@ -10,7 +10,11 @@ import Books from "./Books/Books";
 const DashboardTabs = () => {
   return (
     <div>
-      <Tabs defaultActiveKey="categories" id="uncontrolled-tab-example">
+      <Tabs
+        defaultActiveKey="categories"
+        id="uncontrolled-tab-example"
+        className="d-flex justify-content-center"
+      >
         <Tab eventKey="categories" title="Categories">
           <Categories />
         </Tab>
