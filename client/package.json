@@ -7,8 +7,10 @@
     "@material-ui/icons": "^4.5.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.4.1",
+    "formik": "^2.0.8",
     "materialize-css": "^1.0.0",
     "moment": "^2.24.0",
+    "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
@@ -19,7 +21,8 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",

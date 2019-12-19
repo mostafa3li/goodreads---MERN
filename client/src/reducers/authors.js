@@ -1,9 +1,9 @@
 import {
   GET_AUTHORS,
-  AUTHORS_ERROR,
   ADD_AUTHOR,
   EDIT_AUTHOR,
   DELETE_AUTHOR,
+  AUTHORS_ERROR,
   CLEAR_AUTHORS,
   ADD_AUTHOR_IMAGE
 } from "../actions/types";
@@ -56,7 +56,7 @@ export default function(state = initialState, action) {
     case CLEAR_AUTHORS:
       return {
         ...state,
-        authors: [],
+        authors: 0,
         author: null,
         loading: false
       };

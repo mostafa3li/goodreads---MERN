@@ -25,8 +25,7 @@ const userSchema = new mongoose.Schema(
       required: true
     },
     isAdmin: {
-      type: Boolean,
-      default: false
+      type: Boolean
     },
     tokens: [
       {
@@ -83,6 +82,17 @@ userSchema.statics.findAdmin = async (email, password) => {
   if (!isMatch) {
     throw new Error();
   }
+
+  return user;
+};
+
+//! custom find User
+userSchema.statics.findByCredentials = async (email, password) => {
+  const user = await User.findOne({ email });
+  if (!user) return false;
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) return false;
 
   return user;
 };

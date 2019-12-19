@@ -1,16 +1,18 @@
 import React, { Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import "./app.css";
+import "./app.scss";
+
+// actions
+import { loadUser } from "./actions/users";
+
+// layout
+import Spinner from "./components/layout/Spinner";
 
 // Components
-import Landing from "./components/layout/Landing";
-import Routes from "./components/routing/Routes";
-
-// Redux
-import { Provider } from "react-redux";
-import store from "./store";
-import { loadUser } from "./actions/users";
+import Routes from "./routing/Routes";
 
 // import setAuthToken from "./utils/setAuthToken";
 
@@ -18,24 +20,33 @@ import { loadUser } from "./actions/users";
 //   setAuthToken(localStorage.token);
 // }
 
-const App = () => {
+const App = ({ users: { user, loading }, loadUser }) => {
   useEffect(() => {
-    store.dispatch(loadUser());
+    loadUser();
     // loading the user to verify existence, if not exist will dispatch AUTH_ERROR to show spinner in private routes.
-  }, []);
+  }, [loadUser]);
 
   return (
-    <Provider store={store}>
-      <Router>
-        <Fragment>
-          <Switch>
-            <Route exact path="/" component={Landing} />
+    <Router>
+      <Fragment>
+        <Switch>
+          {loading && user === null ? (
+            <Spinner />
+          ) : (
             <Route component={Routes} />
-          </Switch>
-        </Fragment>
-      </Router>
-    </Provider>
+          )}
+        </Switch>
+      </Fragment>
+    </Router>
   );
 };
 
-export default App;
+App.propTypes = {
+  users: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  users: state.users
+});
+
+export default connect(mapStateToProps, { loadUser })(App);

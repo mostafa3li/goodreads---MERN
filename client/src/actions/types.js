@@ -1,18 +1,18 @@
 //*--- User Authentications ---*\\
-export const SET_ALERT = "SET_ALERT";
-export const REMOVE_ALERT = "REMOVE_ALERT";
+export const REGISTER_USER = "REGISTER_USER";
+export const ADD_USER_IMAGE = "ADD_USER_IMAGE";
 export const USER_LOADED = "USER_LOADED";
-export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
+export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGOUT = "LOGOUT";
 
 //*--- Categories ---*\\
 export const GET_CATEGORIES = "GET_CATEGORIES";
-export const CATEGORIES_ERROR = "CATEGORIES_ERROR";
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const EDIT_CATEGORY = "EDIT_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const CATEGORIES_ERROR = "CATEGORIES_ERROR";
 export const CLEAR_CATEGORIES = "CLEAR_CATEGORIES";
 
 //*--- Authors ---*\\

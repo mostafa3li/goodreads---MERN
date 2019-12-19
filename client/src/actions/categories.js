@@ -10,6 +10,8 @@ import {
   DELETE_RELATED_BOOKS
 } from "./types";
 
+//============================================
+
 const config = {
   headers: {
     "Content-Type": "application/json"
@@ -35,6 +37,8 @@ const handleError = (error, dispatch) => {
   });
 };
 
+//============================================
+
 //! get all categories
 export const getCategories = () => async (dispatch) => {
   try {
@@ -47,6 +51,8 @@ export const getCategories = () => async (dispatch) => {
     handleError(error, dispatch);
   }
 };
+
+//============================================
 
 //! add category
 export const addCategory = (category) => async (dispatch) => {
@@ -65,6 +71,8 @@ export const addCategory = (category) => async (dispatch) => {
     handleError(error, dispatch);
   }
 };
+
+//============================================
 
 //! delete category
 export const deleteCategory = (_id) => async (dispatch) => {
@@ -86,6 +94,8 @@ export const deleteCategory = (_id) => async (dispatch) => {
     handleError(error, dispatch);
   }
 };
+
+//============================================
 
 //! edit category
 export const editCategory = (categoryData) => async (dispatch) => {

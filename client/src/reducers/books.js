@@ -1,9 +1,9 @@
 import {
   GET_BOOKS,
-  BOOKS_ERROR,
   ADD_BOOK,
   EDIT_BOOK,
   DELETE_BOOK,
+  BOOKS_ERROR,
   CLEAR_BOOKS,
   ADD_BOOK_IMAGE,
   DELETE_RELATED_BOOKS
@@ -72,7 +72,7 @@ export default function(state = initialState, action) {
     case CLEAR_BOOKS:
       return {
         ...state,
-        books: [],
+        books: 0,
         book: null,
         loading: false
       };

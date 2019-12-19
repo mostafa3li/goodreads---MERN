@@ -10,6 +10,8 @@ import {
   ADD_BOOK_IMAGE
 } from "./types";
 
+//============================================
+
 const config = {
   headers: {
     "Content-Type": "application/json"
@@ -35,6 +37,8 @@ const handleError = (error, dispatch) => {
   });
 };
 
+//============================================
+
 //! get all books
 export const getBooks = () => async (dispatch) => {
   try {
@@ -47,6 +51,8 @@ export const getBooks = () => async (dispatch) => {
     handleError(error, dispatch);
   }
 };
+
+//============================================
 
 //! add book image
 export const addBookImage = (_id, BookImage) => async (dispatch) => {
@@ -72,6 +78,8 @@ export const addBookImage = (_id, BookImage) => async (dispatch) => {
   }
 };
 
+//============================================
+
 //! add book
 export const addBook = (bookData, bookImage) => async (dispatch) => {
   try {
@@ -89,6 +97,8 @@ export const addBook = (bookData, bookImage) => async (dispatch) => {
   }
 };
 
+//============================================
+
 //! delete book
 export const deleteBook = (_id) => async (dispatch) => {
   try {
@@ -105,6 +115,8 @@ export const deleteBook = (_id) => async (dispatch) => {
     handleError(error, dispatch);
   }
 };
+
+//============================================
 
 //! edit book
 export const editBook = (_id, bookData) => async (dispatch) => {

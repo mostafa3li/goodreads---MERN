@@ -1,9 +1,9 @@
 import {
   GET_CATEGORIES,
-  CATEGORIES_ERROR,
   ADD_CATEGORY,
   EDIT_CATEGORY,
   DELETE_CATEGORY,
+  CATEGORIES_ERROR,
   CLEAR_CATEGORIES
 } from "../actions/types";
 
@@ -20,9 +20,6 @@ export default function(state = initialState, action) {
   switch (type) {
     case GET_CATEGORIES:
       return { ...state, categories: payload, loading: false };
-
-    case CATEGORIES_ERROR:
-      return { ...state, error: payload, loading: false };
 
     case ADD_CATEGORY:
       return {
@@ -51,10 +48,13 @@ export default function(state = initialState, action) {
         loading: false
       };
 
+    case CATEGORIES_ERROR:
+      return { ...state, error: payload, loading: false };
+
     case CLEAR_CATEGORIES:
       return {
         ...state,
-        categories: [],
+        categories: 0,
         category: null,
         loading: false
       };

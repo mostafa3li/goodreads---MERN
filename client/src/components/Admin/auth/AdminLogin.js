@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Paper from "@material-ui/core/Paper";
@@ -17,10 +17,10 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 // actions
-import { adminLogin } from "../../actions/users";
+import { adminLogin } from "../../../actions/users";
 
 // layout
-import Spinner from "../layout/Spinner";
+import Spinner from "../../layout/Spinner";
 
 import "./AdminLogin.css";
 
@@ -134,6 +134,13 @@ const AdminLogin = ({
               </div>
             </form>
           </Paper>
+          <div className="text-center mt-3">
+            <Link to="/">
+              <Button variant="contained" color="primary">
+                go to website
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </Fragment>

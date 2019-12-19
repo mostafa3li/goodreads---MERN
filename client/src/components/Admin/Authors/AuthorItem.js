@@ -86,6 +86,7 @@ const AuthorItem = ({
       </td>
     </tr>
   ) : (
+    authors &&
     authors.map((author) => {
       const firstName =
         author.name.split(" ").length === 1

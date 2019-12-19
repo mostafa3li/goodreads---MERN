@@ -54,6 +54,7 @@ const CategoryItem = ({
       </td>
     </tr>
   ) : (
+    categories &&
     categories.map((category) => (
       <tr key={category._id}>
         {/* //! ID */}

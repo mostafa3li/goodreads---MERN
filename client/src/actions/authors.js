@@ -11,6 +11,8 @@ import {
   DELETE_RELATED_BOOKS
 } from "./types";
 
+//============================================
+
 const config = {
   headers: {
     "Content-Type": "application/json"
@@ -36,6 +38,8 @@ const handleError = (error, dispatch) => {
   });
 };
 
+//============================================
+
 //! get all authors
 export const getAuthors = () => async (dispatch) => {
   try {
@@ -48,6 +52,8 @@ export const getAuthors = () => async (dispatch) => {
     handleError(error, dispatch);
   }
 };
+
+//============================================
 
 //! add author image
 export const addAuthorImage = (_id, authorImage) => async (dispatch) => {
@@ -72,6 +78,8 @@ export const addAuthorImage = (_id, authorImage) => async (dispatch) => {
     handleError(error, dispatch);
   }
 };
+
+//============================================
 
 //! add Author
 export const addAuthor = (authorData, authorImage) => async (dispatch) => {
@@ -101,6 +109,8 @@ export const addAuthor = (authorData, authorImage) => async (dispatch) => {
   }
 };
 
+//============================================
+
 //! delete author
 export const deleteAuthor = (_id) => async (dispatch) => {
   try {
@@ -121,6 +131,8 @@ export const deleteAuthor = (_id) => async (dispatch) => {
     handleError(error, dispatch);
   }
 };
+
+//============================================
 
 //! edit author
 export const editAuthor = (_id, authorData) => async (dispatch) => {
@@ -143,6 +155,8 @@ export const editAuthor = (_id, authorData) => async (dispatch) => {
     handleError(error, dispatch);
   }
 };
+
+//============================================
 
 // //! get author image
 // export const getAuthorImage = (authorId) => async (dispatch) => {

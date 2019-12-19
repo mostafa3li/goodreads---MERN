@@ -1,0 +1,128 @@
+:root {
+  --primary-color: #17a2b8;
+  --dark-color: #343a40;
+  --light-color: #f4f4f4;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+}
+
+$screen-xs-max: 480px;
+$screen-sm-min: 481px;
+$screen-sm-max: 767px;
+$screen-md-min: 768px;
+$screen-md-max: 991px;
+$screen-lg-min: 992px;
+$screen-lg-max: 1199px;
+$screen-xl-min: 1200px;
+
+.alert {
+  padding: 2px 8px;
+}
+
+.alert-danger {
+  background: var(--danger-color);
+  color: #fff;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-dark {
+  color: var(--dark-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+/* ! toast */
+#toast-container {
+  position: fixed;
+  bottom: 20px !important;
+  left: 30px !important;
+  z-index: 99999999999;
+  .toast {
+    font-weight: bold;
+  }
+}
+
+/* ! MUI Overrides */
+.MuiPopover-paper {
+  margin-top: 7px;
+}
+
+/* ! Bootstrap Overrides */
+ul.tabs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error {
+  position: absolute;
+  right: 0;
+  top: 35%;
+  transform: translateY(-50%);
+}
+
+/* ! ====================== Global Styles ====================== ! */
+
+/* ! ====================== Home page ====================== ! */
+
+.home-header {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  .home-nav {
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    height: 80px;
+  }
+}
+
+.home-banner {
+  background: url(./assets/home-banner.png);
+  background-size: cover;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 90px;
+
+  @media (max-width: $screen-sm-max) {
+    h4 {
+      font-size: 22px;
+    }
+    small {
+      color: black !important;
+      background-color: rgba(#fff, 0.5);
+      border-radius: 5px;
+      padding: 0 5px;
+    }
+  }
+}
+
+.slogan {
+  background: url(./assets/slogan.png);
+  width: 445px;
+  margin: auto;
+  height: 115px;
+  @media (min-width: $screen-md-min) {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+  }
+  @media (max-width: $screen-xs-max) {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 98px;
+  }
+}

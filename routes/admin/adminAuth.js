@@ -15,14 +15,14 @@ const validateAdminRegistery = [
   check("email", "Please include a valid email.").isEmail(),
   check("password")
     .isLength({ min: 6 })
-    .withMessage("Please enter a password with 6 or more character")
+    .withMessage("Please enter a password with 6 or more characters")
     .not()
     .contains("password")
     .withMessage("password must not contains password"),
   check("isAdmin")
+    .not()
     .exists()
-    .equals("true")
-    .withMessage("please add isAdmin as true")
+    .withMessage(`You can't add "isAdmin" as a hardcoded property`)
 ];
 
 router.post("/createAdmin", validateAdminRegistery, async (req, res) => {
@@ -39,11 +39,14 @@ router.post("/createAdmin", validateAdminRegistery, async (req, res) => {
       return res.status(400).send({ errors: { msg: "User already Exists" } });
     }
 
+    // setting the user as Admin
+    req.body.isAdmin = true;
+
     user = new User(req.body);
     await user.save();
     res.status(201).send(user);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error);
   }
 });
 

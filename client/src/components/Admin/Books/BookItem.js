@@ -94,6 +94,7 @@ const BookItem = ({
       </td>
     </tr>
   ) : (
+    books &&
     books.map((book) => (
       <tr key={book._id}>
         {/* //! ID */}
