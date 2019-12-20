@@ -35,6 +35,7 @@ $screen-xl-min: 1200px;
 a {
   color: var(--primary-color);
   text-decoration: none;
+
   &:hover {
     text-decoration: none;
   }
@@ -50,6 +51,7 @@ ul {
   bottom: 20px !important;
   left: 30px !important;
   z-index: 99999999999;
+
   .toast {
     font-weight: bold;
   }
@@ -58,6 +60,10 @@ ul {
 /* ! MUI Overrides */
 .MuiPopover-paper {
   margin-top: 7px;
+}
+
+#outlined-adornment-email {
+  padding-right: 69px !important;
 }
 
 /* ! Bootstrap Overrides */
@@ -74,32 +80,41 @@ ul.tabs {
 }
 
 /* ! ====================== Global Styles ====================== ! */
+main {
+  padding-top: 80px;
+}
 
-/* ! ====================== Home page ====================== ! */
-
-.home-header {
+header {
   position: absolute;
   width: 100%;
   top: 0;
   left: 0;
+  background-color: #E5E5E5;
+
   .home-nav {
     border-bottom: 1px solid #ccc;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     height: 80px;
+
+    h5 {
+      color: #000;
+    }
   }
 }
+
+/* ! ====================== Home page ====================== ! */
 
 .home-banner {
   background: url(./assets/home-banner.png);
   background-size: cover;
   min-height: 100vh;
   width: 100%;
-  padding-top: 90px;
 
   @media (max-width: $screen-sm-max) {
     h4 {
       font-size: 22px;
     }
+
     small {
       color: black !important;
       background-color: rgba(#fff, 0.5);
@@ -114,12 +129,14 @@ ul.tabs {
   width: 445px;
   margin: auto;
   height: 115px;
+
   @media (min-width: $screen-md-min) {
     position: absolute;
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%);
   }
+
   @media (max-width: $screen-xs-max) {
     background-size: contain;
     background-repeat: no-repeat;

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Table from "react-bootstrap/Table";
 
 // actions
-import { getAuthors } from "../../../actions/authors";
+import { getAuthors } from "../../../redux/actions/authors";
 
 // layout
 import AddAuthorsModal from "../Modals/AddAuthors";

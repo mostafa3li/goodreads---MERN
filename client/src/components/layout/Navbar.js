@@ -1,21 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
 // actions
-import { logout } from "../../actions/users";
+import { logout } from "../../redux/actions/users";
+
+// layout
+import logo from "../../assets/logo.png";
 
 const DashboardNavbar = ({ user, logout }) => {
   return (
-    <Navbar bg="dark" variant="dark" className="home-nav">
+    <Navbar className="home-nav">
       <div className="container">
         <Navbar.Brand>
-          <Link to="/" className="brand-logo">
-            goodreads
-          </Link>
+          <NavLink to="/">
+            <img
+              src={logo}
+              width="200"
+              height="45"
+              className="d-inline-block align-top"
+              alt="Goodreads Logo"
+            />
+          </NavLink>
         </Navbar.Brand>
         <Nav className="mr-auto">
           <Link to="/" className="nav-link">

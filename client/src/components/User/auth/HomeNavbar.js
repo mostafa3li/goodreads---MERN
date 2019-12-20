@@ -4,7 +4,7 @@ import NavLink from "react-bootstrap/NavLink";
 import Button from "@material-ui/core/Button";
 
 // layout
-import logo from "../../../../assets/logo.png";
+import logo from "../../../assets/logo.png";
 
 const LoginNavbar = (props) => {
   return (

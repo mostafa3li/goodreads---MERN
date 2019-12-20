@@ -12,7 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
 // actions
-import { addBook } from "../../../actions/books";
+import { addBook } from "../../../redux/actions/books";
 
 const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
   const [formData, setFormData] = useState({

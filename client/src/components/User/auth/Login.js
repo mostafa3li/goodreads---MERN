@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import SendIcon from "@material-ui/icons/Send";
 
 // actions
-import { userLogin } from "../../../../actions/users";
+import { userLogin } from "../../../redux/actions/users";
 
 const Login = ({ userLogin, error, ...props }) => {
   const [formData, setFormData] = useState({

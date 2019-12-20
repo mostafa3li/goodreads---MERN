@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 
 // actions
-import { deleteCategory, editCategory } from "../../../actions/categories";
+import {
+  deleteCategory,
+  editCategory
+} from "../../../redux/actions/categories";
 
 // layout
 import Spinner from "../../layout/Spinner";

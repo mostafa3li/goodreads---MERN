@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./app.scss";
 
 // actions
-import { loadUser } from "./actions/users";
+import { loadUser } from "./redux/actions/users";
 
 // layout
 import Spinner from "./components/layout/Spinner";

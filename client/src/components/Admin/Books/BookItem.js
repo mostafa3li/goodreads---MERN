@@ -8,7 +8,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 
 // actions
-import { deleteBook, editBook, addBookImage } from "../../../actions/books";
+import {
+  deleteBook,
+  editBook,
+  addBookImage
+} from "../../../redux/actions/books";
 
 // layout
 import Spinner from "../../layout/Spinner";

@@ -10,7 +10,7 @@ import {
   deleteAuthor,
   editAuthor,
   addAuthorImage
-} from "../../../actions/authors";
+} from "../../../redux/actions/authors";
 
 // layout
 import Spinner from "../../layout/Spinner";

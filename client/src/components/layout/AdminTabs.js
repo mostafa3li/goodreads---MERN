@@ -3,9 +3,9 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
 // Components
-import Categories from "./Categories/Categories";
-import Authors from "./Authors/Authors";
-import Books from "./Books/Books";
+import Categories from "../Admin/Categories/Categories";
+import Authors from "../Admin/Authors/Authors";
+import Books from "../Admin/Books/Books";
 
 const DashboardTabs = () => {
   return (

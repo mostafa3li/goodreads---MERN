@@ -9,7 +9,7 @@ import FilledInput from "@material-ui/core/FilledInput";
 import TextField from "@material-ui/core/TextField";
 
 // actions
-import { addAuthor } from "../../../actions/authors";
+import { addAuthor } from "../../../redux/actions/authors";
 
 const AddAuthors = ({ addAuthor, ...props }) => {
   const [formData, setFormData] = useState({

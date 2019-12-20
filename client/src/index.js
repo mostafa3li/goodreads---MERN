@@ -4,7 +4,7 @@ import App from "./App";
 
 // Redux
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./redux/store";
 
 const goodreadsApp = (
   <Provider store={store}>

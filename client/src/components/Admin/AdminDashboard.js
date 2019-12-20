@@ -1,14 +1,14 @@
 import React from "react";
 
-// components
-import Tabs from "./Tabs";
+// layout
+import AdminTabs from "../layout/AdminTabs";
 
 const AdminDashboard = () => {
   return (
     <main>
       <section>
         <h3 className="my-3 text-center">Admin Dashboard</h3>
-        <Tabs />
+        <AdminTabs />
       </section>
     </main>
   );

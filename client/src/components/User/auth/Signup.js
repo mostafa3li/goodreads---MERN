@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import SendIcon from "@material-ui/icons/Send";
 
 // actions
-import { userRegister } from "../../../../actions/users";
+import { userRegister } from "../../../redux/actions/users";
 
 // Components
 import Login from "./Login";

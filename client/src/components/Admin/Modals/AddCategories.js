@@ -8,7 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 
 // actions
-import { addCategory } from "../../../actions/categories";
+import { addCategory } from "../../../redux/actions/categories";
 
 const AddCategories = ({ addCategory, ...props }) => {
   const [category, setCategory] = useState("");
@@ -19,7 +19,6 @@ const AddCategories = ({ addCategory, ...props }) => {
     e.preventDefault();
     addCategory(category);
     if (category !== "") {
-      //! add (getCategory) to compare
       props.onHide();
       setCategory("");
     }

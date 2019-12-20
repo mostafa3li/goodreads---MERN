@@ -1,20 +1,40 @@
-import React from "react";
-// import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React, { Fragment, useState } from "react";
 
-const Login = (props) => {
+// Components
+import HomeNavbar from "./HomeNavbar";
+import Signup from "./Signup";
+import Login from "./Login";
+
+const Home = () => {
+  const [loginForm, setLoginForm] = useState(false);
+
+  const changeFormHandler = (e) => {
+    e.preventDefault();
+    setLoginForm(!loginForm);
+  };
+
   return (
-    <main>
-      <h1>Landing Page</h1>
-      <br />
-      <h3>Unauthenticated User</h3>
-      <h3>LOGIN</h3>
-      <br />
-      <Link to="/admin">Admin</Link>
-    </main>
+    <Fragment>
+      <header>
+        <HomeNavbar
+          loginFormStatus={loginForm}
+          changeFormHandler={changeFormHandler}
+        />
+      </header>
+      <main className="home-banner">
+        <section>
+          <div className="container">
+            <div className="row">
+              <div className="slogan"></div>
+              <div className="col-md-6 offset-md-6 py-4">
+                {(loginForm && <Login />) || <Signup />}
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </Fragment>
   );
 };
 
-Login.propTypes = {};
-
-export default Login;
+export default Home;

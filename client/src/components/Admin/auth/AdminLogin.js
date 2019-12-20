@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
-
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -17,12 +16,10 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 // actions
-import { adminLogin } from "../../../actions/users";
+import { adminLogin } from "../../../redux/actions/users";
 
 // layout
 import Spinner from "../../layout/Spinner";
-
-import "./AdminLogin.css";
 
 const AdminLogin = ({
   adminLogin,

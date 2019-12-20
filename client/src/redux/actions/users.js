@@ -14,7 +14,7 @@ import {
 } from "../actions/types";
 
 // utils
-import setAuthToken from "../utils/setAuthToken";
+import setAuthToken from "../../utils/setAuthToken";
 
 //============================================
 

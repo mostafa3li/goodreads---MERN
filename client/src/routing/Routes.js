@@ -16,7 +16,7 @@ import AdminLogin from "../components/Admin/auth/AdminLogin";
 import AdminDashboard from "../components/Admin/AdminDashboard";
 // User
 import Landing from "../components/User/Landing";
-import HomePage from "../components/User/auth/HomePage/HomePage";
+import HomePage from "../components/User/auth/HomePage";
 import SiteRoutes from "./CustomRoutes/SiteRoutes";
 
 const Routes = ({ users: { isAuthenticated } }) => {
@@ -24,7 +24,9 @@ const Routes = ({ users: { isAuthenticated } }) => {
     <Switch>
       {isAuthenticated ? (
         <Fragment>
-          <Navbar />
+          <header>
+            <Navbar />
+          </header>
           <AdminRoute exact path="/admin" component={AdminDashboard} />
           <PrivateRoute exact path="/" component={Landing} />
           <SiteRoutes />

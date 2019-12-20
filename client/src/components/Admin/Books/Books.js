@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Table from "react-bootstrap/Table";
 
 // actions
-import { getBooks } from "../../../actions/books";
+import { getBooks } from "../../../redux/actions/books";
 
 // layout
 import AddBooksModal from "../Modals/AddBooks";
