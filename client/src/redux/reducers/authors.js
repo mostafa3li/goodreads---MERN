@@ -1,5 +1,6 @@
 import {
   GET_AUTHORS,
+  GET_AUTHOR,
   ADD_AUTHOR,
   EDIT_AUTHOR,
   DELETE_AUTHOR,
@@ -20,7 +21,10 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_AUTHORS:
-      return { ...state, authors: payload, loading: false };
+      return { ...state, authors: payload, author: null, loading: false };
+
+    case GET_AUTHOR:
+      return { ...state, author: payload, loading: false };
 
     case ADD_AUTHOR:
       return { ...state, authors: [...state.authors, payload] };
@@ -62,6 +66,6 @@ export default function(state = initialState, action) {
       };
 
     default:
-      return state;
+      return { ...state, author: null };
   }
 }

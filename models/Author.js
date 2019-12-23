@@ -24,8 +24,7 @@ const authorSchema = new mongoose.Schema(
       type: Buffer
     },
     hasAvatar: {
-      type: Boolean,
-      default: false
+      type: Boolean
     }
   },
   {
@@ -39,14 +38,23 @@ authorSchema.virtual("books", {
   foreignField: "author"
 });
 
+authorSchema.set("toJSON", { virtuals: true });
+authorSchema.set("toObject", { virtuals: true });
+
 //*======================================================================================
 
 //! manipulate author data before sending it
 authorSchema.methods.toJSON = function() {
   const author = this;
+  // convert doc to raw data (JS Object) that can be manipulated.
   const authorObject = author.toObject();
-
+  // to not send duplicated id amongs the data sent to the user.
+  delete authorObject.id;
   delete authorObject.avatar;
+  authorObject.books &&
+    authorObject.books.map((book) => {
+      delete book.photo;
+    });
   return authorObject;
 };
 

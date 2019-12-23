@@ -13,7 +13,7 @@ router.get("/", auth, async (req, res) => {
   try {
     const authors = await Author.find();
     if (authors.length === 0) {
-      throw new Error("You have no Categories yet");
+      throw new Error("You have no Authors yet");
     }
     res.send(authors);
   } catch (error) {
@@ -31,8 +31,17 @@ router.get("/:id", auth, async (req, res) => {
   try {
     const author = await Author.findOne({ _id: id });
     if (!author) {
-      throw new Error("Author not found");
+      return res.status(404).send({
+        errors: [
+          {
+            msg: "Author Not Found"
+          }
+        ]
+      });
     }
+    await author
+      .populate({ path: "books", select: "name hasPhoto" })
+      .execPopulate();
     res.send(author);
   } catch (error) {
     res.status(500).send(error.message);

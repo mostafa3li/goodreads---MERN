@@ -1,5 +1,6 @@
 import {
   GET_CATEGORIES,
+  GET_CATEGORY,
   ADD_CATEGORY,
   EDIT_CATEGORY,
   DELETE_CATEGORY,
@@ -19,7 +20,10 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_CATEGORIES:
-      return { ...state, categories: payload, loading: false };
+      return { ...state, categories: payload, category: null, loading: false };
+
+    case GET_CATEGORY:
+      return { ...state, category: payload, loading: false };
 
     case ADD_CATEGORY:
       return {
@@ -60,6 +64,6 @@ export default function(state = initialState, action) {
       };
 
     default:
-      return state;
+      return { ...state, category: null };
   }
 }

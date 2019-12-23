@@ -31,12 +31,24 @@ router.get("/:id", auth, async (req, res) => {
   try {
     const category = await Category.findOne({ _id: id });
     if (!category) {
-      throw new Error("Category not found");
+      return res.status(404).send({
+        errors: [
+          {
+            msg: "Category Not Found"
+          }
+        ]
+      });
     }
-    // await category.populate("books").execPopulate();
+    await category
+      .populate({
+        path: "books",
+        select: "name hasPhoto",
+        populate: { path: "author", select: "name" }
+      })
+      .execPopulate();
     res.send(category);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   }
 });
 

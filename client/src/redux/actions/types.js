@@ -9,6 +9,7 @@ export const LOGOUT = "LOGOUT";
 
 //*--- Categories ---*\\
 export const GET_CATEGORIES = "GET_CATEGORIES";
+export const GET_CATEGORY = "GET_CATEGORY";
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const EDIT_CATEGORY = "EDIT_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
@@ -17,6 +18,7 @@ export const CLEAR_CATEGORIES = "CLEAR_CATEGORIES";
 
 //*--- Authors ---*\\
 export const GET_AUTHORS = "GET_AUTHORS";
+export const GET_AUTHOR = "GET_AUTHOR";
 export const AUTHORS_ERROR = "AUTHORS_ERROR";
 export const ADD_AUTHOR = "ADD_AUTHOR";
 export const ADD_AUTHOR_IMAGE = "ADD_AUTHOR_IMAGE";
@@ -26,6 +28,7 @@ export const CLEAR_AUTHORS = "CLEAR_AUTHORS";
 
 //*--- Books ---*\\
 export const GET_BOOKS = "GET_BOOKS";
+export const GET_BOOK = "GET_BOOK";
 export const BOOKS_ERROR = "BOOKS_ERROR";
 export const ADD_BOOK = "ADD_BOOK";
 export const ADD_BOOK_IMAGE = "ADD_BOOK_IMAGE";

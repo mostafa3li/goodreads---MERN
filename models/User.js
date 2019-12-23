@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema(
 //! manipulate user data before sending it
 userSchema.methods.toJSON = function() {
   const user = this;
-  const userObject = user.toObject(); // raw data than can be manipulated.
+  const userObject = user.toObject(); // raw data that can be manipulated.
   // to not send password and token amongs the data sent to the user.
   delete userObject.password;
   delete userObject.tokens;

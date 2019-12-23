@@ -3,6 +3,7 @@ import M from "materialize-css";
 
 import {
   GET_AUTHORS,
+  GET_AUTHOR,
   AUTHORS_ERROR,
   ADD_AUTHOR,
   DELETE_AUTHOR,
@@ -142,7 +143,6 @@ export const editAuthor = (_id, authorData) => async (dispatch) => {
 
   try {
     const res = await axios.patch(`/adminAuthors/edit/${_id}`, body, config);
-    console.log("response", res.data);
     dispatch({
       type: EDIT_AUTHOR,
       payload: { _id, updatedAuthor: res.data }
@@ -158,14 +158,15 @@ export const editAuthor = (_id, authorData) => async (dispatch) => {
 
 //============================================
 
-// //! get author image
-// export const getAuthorImage = (authorId) => async (dispatch) => {
-//   try {
-//     const res = await axios.get(`/api/authors/${authorId}/avatar`);
-//     // return res.data;
-//     dispatch({ type: GET_AUTHOR_IMAGE, payload: res.data });
-//   } catch (error) {
-//     // return false;
-//     handleError(error, dispatch);
-//   }
-// };
+//! Get book by id
+export const getAuthor = (_id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/authors/${_id}`);
+    dispatch({
+      type: GET_AUTHOR,
+      payload: res.data
+    });
+  } catch (error) {
+    handleError(error, dispatch);
+  }
+};

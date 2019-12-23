@@ -30,7 +30,8 @@ const handleError = (error, dispatch, login = false) => {
     errors.forEach((error) =>
       M.toast({
         html: error.msg,
-        classes: "alert alert-danger rounded"
+        classes: "alert alert-danger rounded",
+        displayLength: 50000
       })
     );
   }

@@ -12,8 +12,8 @@ const auth = require("../../middleware/auth");
 router.get("/", auth, async (req, res) => {
   try {
     const books = await Book.find()
-      .populate("category")
-      .populate("author")
+      .populate({ path: "category", select: "category" })
+      .populate({ path: "author", select: "name hasAvatar" })
       .exec();
     if (books.length === 0) {
       throw new Error("You have no books yet");
@@ -34,8 +34,18 @@ router.get("/:id", auth, async (req, res) => {
   try {
     const book = await Book.findOne({ _id: id });
     if (!book) {
-      throw new Error("Book not found");
+      return res.status(404).send({
+        errors: [
+          {
+            msg: "Book Not Found"
+          }
+        ]
+      });
     }
+    await book
+      .populate({ path: "author", select: "name" })
+      .populate({ path: "category", select: "category" })
+      .execPopulate();
     res.send(book);
   } catch (error) {
     res.status(500).send(error.message);

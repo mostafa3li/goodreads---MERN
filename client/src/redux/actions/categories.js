@@ -3,6 +3,7 @@ import M from "materialize-css";
 
 import {
   GET_CATEGORIES,
+  GET_CATEGORY,
   CATEGORIES_ERROR,
   ADD_CATEGORY,
   DELETE_CATEGORY,
@@ -111,6 +112,21 @@ export const editCategory = (categoryData) => async (dispatch) => {
     M.toast({
       html: "Category Updated Successfully",
       classes: "alert bg-success text-white rounded"
+    });
+  } catch (error) {
+    handleError(error, dispatch);
+  }
+};
+
+//============================================
+
+//! Get category by id
+export const getCategory = (_id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/categories/${_id}`);
+    dispatch({
+      type: GET_CATEGORY,
+      payload: res.data
     });
   } catch (error) {
     handleError(error, dispatch);

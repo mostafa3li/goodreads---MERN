@@ -3,6 +3,7 @@ import M from "materialize-css";
 
 import {
   GET_BOOKS,
+  GET_BOOK,
   BOOKS_ERROR,
   ADD_BOOK,
   DELETE_BOOK,
@@ -135,6 +136,21 @@ export const editBook = (_id, bookData) => async (dispatch) => {
     M.toast({
       html: "Book Updated Successfully",
       classes: "alert bg-success text-white rounded"
+    });
+  } catch (error) {
+    handleError(error, dispatch);
+  }
+};
+
+//============================================
+
+//! Get book by id
+export const getBook = (_id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/books/${_id}`);
+    dispatch({
+      type: GET_BOOK,
+      payload: res.data
     });
   } catch (error) {
     handleError(error, dispatch);

@@ -25,8 +25,7 @@ const bookSchema = new mongoose.Schema(
       type: Buffer
     },
     hasPhoto: {
-      type: Boolean,
-      default: false
+      type: Boolean
     }
   },
   {
@@ -42,6 +41,9 @@ bookSchema.methods.toJSON = function() {
   const bookObject = book.toObject();
 
   delete bookObject.photo;
+  delete bookObject.author.avatar;
+  delete bookObject.author.id;
+  delete bookObject.category.id;
   return bookObject;
 };
 

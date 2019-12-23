@@ -1,5 +1,6 @@
 import {
   GET_BOOKS,
+  GET_BOOK,
   ADD_BOOK,
   EDIT_BOOK,
   DELETE_BOOK,
@@ -21,17 +22,13 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_BOOKS:
-      return {
-        ...state,
-        books: payload,
-        loading: false
-      };
+      return { ...state, books: payload, book: null, loading: false };
+
+    case GET_BOOK:
+      return { ...state, book: payload, loading: false };
 
     case ADD_BOOK:
-      return {
-        ...state,
-        books: [...state.books, payload]
-      };
+      return { ...state, books: [...state.books, payload] };
 
     case ADD_BOOK_IMAGE:
       return {
@@ -78,6 +75,6 @@ export default function(state = initialState, action) {
       };
 
     default:
-      return state;
+      return { ...state, book: null };
   }
 }
