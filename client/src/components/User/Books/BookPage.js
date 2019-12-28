@@ -1,12 +1,9 @@
 import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import CardMedia from "@material-ui/core/CardMedia";
 import Card from "@material-ui/core/Card";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 
 // actions
 import { getBook } from "../../../redux/actions/books";
@@ -14,8 +11,18 @@ import { getBook } from "../../../redux/actions/books";
 // layout
 import bookPhoto from "../../../assets/book-placeholder.png";
 import Spinner from "../../layout/Spinner";
+import BookRating from "../../layout/Rating";
+import SelectShelve from "../../layout/SelectShelve";
 
-const BookPage = ({ getBook, books: { book, loading }, match }) => {
+// utils
+import getBookShelve from "../../../utils/getBookShelve";
+
+const BookPage = ({
+  getBook,
+  books: { book, loading },
+  userBooks: { userBooks },
+  match
+}) => {
   useEffect(() => {
     getBook(match.params.id);
   }, [getBook, match.params.id]);
@@ -38,21 +45,15 @@ const BookPage = ({ getBook, books: { book, loading }, match }) => {
                   }
                 />
                 <div className="m-2">
-                  <FormControl className="w-100" variant="outlined">
-                    <Select
-                      labelId="edit_category"
-                      name="categoryId"
-                      value={"currently"}
-                      // onChange={(e) => onChange(e)}
-                    >
-                      {/* {categories.map((category) => ( */}
-                      <MenuItem value={"currently"}>Currently Reading</MenuItem>
-                      <MenuItem value={"want"}>Want to Read</MenuItem>
-                      <MenuItem value={"read"}>Read</MenuItem>
-                      {/* ))} */}
-                    </Select>
-                  </FormControl>
-                  {/* //TODO Rating */}
+                  {/* //! Book Shelve  */}
+                  <SelectShelve
+                    bookId={match.params.id}
+                    shelve={getBookShelve(match.params.id, userBooks)}
+                  />
+                  <div className="text-center mt-3">
+                    {/* //TODO Rating */}
+                    <BookRating />
+                  </div>
                 </div>
               </Card>
               <div className="media-body">
@@ -68,6 +69,10 @@ const BookPage = ({ getBook, books: { book, loading }, match }) => {
                     {book.category.category}
                   </Link>
                 </h6>
+                <div>
+                  {/* //TODO Rating & no. of ratings */}
+                  <BookRating disabled={true} />
+                </div>
                 <p className="lead">
                   Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
                   scelerisque ante sollicitudin. Cras purus odio, vestibulum in
@@ -92,8 +97,14 @@ BookPage.propTypes = {
   getBook: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  books: state.books
-});
+const mapStateToProps = (state) => {
+  // console.log(
+  //   state.userBooks.userBook && state.userBooks.userBook[0].shelve[0]
+  // );
+  return {
+    books: state.books,
+    userBooks: state.userBooks
+  };
+};
 
 export default connect(mapStateToProps, { getBook })(BookPage);

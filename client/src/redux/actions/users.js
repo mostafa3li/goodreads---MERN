@@ -10,11 +10,14 @@ import {
   CLEAR_CATEGORIES,
   CLEAR_AUTHORS,
   CLEAR_BOOKS,
+  CLEAR_USER_BOOKS,
   LOGOUT
 } from "../actions/types";
 
 // utils
 import setAuthToken from "../../utils/setAuthToken";
+
+import { getUserBooks } from "./userBooks";
 
 //============================================
 
@@ -30,8 +33,7 @@ const handleError = (error, dispatch, login = false) => {
     errors.forEach((error) =>
       M.toast({
         html: error.msg,
-        classes: "alert alert-danger rounded",
-        displayLength: 50000
+        classes: "alert alert-danger rounded"
       })
     );
   }
@@ -62,6 +64,9 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
+    //=====
+    dispatch(getUserBooks());
+    //=====
     const res = await axios.get("/api/users/me");
     dispatch({
       type: USER_LOADED,
@@ -161,5 +166,6 @@ export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_CATEGORIES });
   dispatch({ type: CLEAR_AUTHORS });
   dispatch({ type: CLEAR_BOOKS });
+  dispatch({ type: CLEAR_USER_BOOKS });
   dispatch({ type: LOGOUT });
 };

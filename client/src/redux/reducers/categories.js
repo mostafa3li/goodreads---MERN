@@ -5,6 +5,7 @@ import {
   EDIT_CATEGORY,
   DELETE_CATEGORY,
   CATEGORIES_ERROR,
+  CLEAR_CATEGORY,
   CLEAR_CATEGORIES
 } from "../actions/types";
 
@@ -55,6 +56,13 @@ export default function(state = initialState, action) {
     case CATEGORIES_ERROR:
       return { ...state, error: payload, loading: false };
 
+    case CLEAR_CATEGORY:
+      return {
+        ...state,
+        category: null,
+        loading: false
+      };
+
     case CLEAR_CATEGORIES:
       return {
         ...state,
@@ -64,6 +72,6 @@ export default function(state = initialState, action) {
       };
 
     default:
-      return { ...state, category: null };
+      return { ...state };
   }
 }

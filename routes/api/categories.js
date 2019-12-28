@@ -11,7 +11,7 @@ const auth = require("../../middleware/auth");
 // @access    Private
 router.get("/", auth, async (req, res) => {
   try {
-    const categories = await Category.find();
+    const categories = await Category.find().lean();
     if (categories.length === 0) {
       throw new Error("You have no Categories yet");
     }
@@ -29,7 +29,14 @@ router.get("/", auth, async (req, res) => {
 router.get("/:id", auth, async (req, res) => {
   const { id } = req.params;
   try {
-    const category = await Category.findOne({ _id: id });
+    const category = await Category.findOne({ _id: id })
+      .lean()
+      .populate({
+        path: "books",
+        select: "name hasPhoto",
+        populate: { path: "author", select: "name" }
+      })
+      .exec();
     if (!category) {
       return res.status(404).send({
         errors: [
@@ -39,13 +46,13 @@ router.get("/:id", auth, async (req, res) => {
         ]
       });
     }
-    await category
-      .populate({
-        path: "books",
-        select: "name hasPhoto",
-        populate: { path: "author", select: "name" }
-      })
-      .execPopulate();
+    // await category
+    //   .populate({
+    //     path: "books",
+    //     select: "name hasPhoto",
+    //     populate: { path: "author", select: "name" }
+    //   })
+    //   .execPopulate();
     res.send(category);
   } catch (error) {
     res.status(500).send(error);

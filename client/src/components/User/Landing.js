@@ -2,7 +2,13 @@ import React from "react";
 // import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-const Landing = () => {
+import { getUserBooks } from "../../redux/actions/userBooks";
+
+const Landing = ({ getUserBooks, userBooks }) => {
+  // useEffect(() => {
+  //   getUserBooks();
+  // }, [getUserBooks]);
+
   return (
     <main>
       <h1>Landing Page</h1>
@@ -15,6 +21,11 @@ const Landing = () => {
 
 Landing.propTypes = {};
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    userBooks: state.userBooks
+  };
+};
 
-export default connect(mapStateToProps)(Landing);
+export default connect(mapStateToProps, { getUserBooks })(Landing);

@@ -49,12 +49,12 @@ authorSchema.methods.toJSON = function() {
   // convert doc to raw data (JS Object) that can be manipulated.
   const authorObject = author.toObject();
   // to not send duplicated id amongs the data sent to the user.
-  delete authorObject.id;
-  delete authorObject.avatar;
-  authorObject.books &&
-    authorObject.books.map((book) => {
-      delete book.photo;
-    });
+  // delete authorObject.id;
+  // delete authorObject.avatar;
+  // authorObject.books &&
+  //   authorObject.books.map((book) => {
+  //     delete book.photo;
+  //   });
   return authorObject;
 };
 

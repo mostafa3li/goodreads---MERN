@@ -11,7 +11,9 @@ const auth = require("../../middleware/auth");
 // @access    Private
 router.get("/", auth, async (req, res) => {
   try {
-    const authors = await Author.find();
+    const authors = await Author.find()
+      .lean()
+      .select("-avatar");
     if (authors.length === 0) {
       throw new Error("You have no Authors yet");
     }
@@ -29,7 +31,11 @@ router.get("/", auth, async (req, res) => {
 router.get("/:id", auth, async (req, res) => {
   const { id } = req.params;
   try {
-    const author = await Author.findOne({ _id: id });
+    const author = await Author.findOne({ _id: id })
+      .lean()
+      .select("-avatar")
+      .populate({ path: "books", select: "name hasPhoto" })
+      .exec();
     if (!author) {
       return res.status(404).send({
         errors: [
@@ -39,9 +45,9 @@ router.get("/:id", auth, async (req, res) => {
         ]
       });
     }
-    await author
-      .populate({ path: "books", select: "name hasPhoto" })
-      .execPopulate();
+    // await author
+    //   .populate({ path: "books", select: "name hasPhoto" })
+    //   .execPopulate();
     res.send(author);
   } catch (error) {
     res.status(500).send(error.message);

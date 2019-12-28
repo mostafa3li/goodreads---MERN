@@ -9,7 +9,8 @@ import {
   DELETE_AUTHOR,
   EDIT_AUTHOR,
   ADD_AUTHOR_IMAGE,
-  DELETE_RELATED_BOOKS
+  DELETE_RELATED_BOOKS,
+  CLEAR_AUTHOR
 } from "./types";
 
 //============================================
@@ -158,9 +159,10 @@ export const editAuthor = (_id, authorData) => async (dispatch) => {
 
 //============================================
 
-//! Get book by id
+//! Get author by id
 export const getAuthor = (_id) => async (dispatch) => {
   try {
+    dispatch({ type: CLEAR_AUTHOR });
     const res = await axios.get(`/api/authors/${_id}`);
     dispatch({
       type: GET_AUTHOR,

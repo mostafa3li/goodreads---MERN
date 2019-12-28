@@ -5,6 +5,7 @@ import {
   EDIT_BOOK,
   DELETE_BOOK,
   BOOKS_ERROR,
+  CLEAR_BOOK,
   CLEAR_BOOKS,
   ADD_BOOK_IMAGE,
   DELETE_RELATED_BOOKS
@@ -66,6 +67,13 @@ export default function(state = initialState, action) {
     case BOOKS_ERROR:
       return { ...state, error: payload, loading: false };
 
+    case CLEAR_BOOK:
+      return {
+        ...state,
+        book: null,
+        loading: false
+      };
+
     case CLEAR_BOOKS:
       return {
         ...state,
@@ -75,6 +83,6 @@ export default function(state = initialState, action) {
       };
 
     default:
-      return { ...state, book: null };
+      return { ...state };
   }
 }

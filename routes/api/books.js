@@ -12,9 +12,12 @@ const auth = require("../../middleware/auth");
 router.get("/", auth, async (req, res) => {
   try {
     const books = await Book.find()
+      .lean()
+      .select("-photo")
       .populate({ path: "category", select: "category" })
       .populate({ path: "author", select: "name hasAvatar" })
       .exec();
+
     if (books.length === 0) {
       throw new Error("You have no books yet");
     }
@@ -32,7 +35,12 @@ router.get("/", auth, async (req, res) => {
 router.get("/:id", auth, async (req, res) => {
   const { id } = req.params;
   try {
-    const book = await Book.findOne({ _id: id });
+    const book = await Book.findOne({ _id: id })
+      .lean()
+      .select("-photo")
+      .populate({ path: "author", select: "name" })
+      .populate({ path: "category", select: "category" })
+      .exec();
     if (!book) {
       return res.status(404).send({
         errors: [
@@ -42,10 +50,10 @@ router.get("/:id", auth, async (req, res) => {
         ]
       });
     }
-    await book
-      .populate({ path: "author", select: "name" })
-      .populate({ path: "category", select: "category" })
-      .execPopulate();
+    // await book
+    //   .populate({ path: "author", select: "name" })
+    //   .populate({ path: "category", select: "category" })
+    //   .execPopulate();
     res.send(book);
   } catch (error) {
     res.status(500).send(error.message);

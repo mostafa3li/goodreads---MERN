@@ -8,7 +8,8 @@ import {
   ADD_BOOK,
   DELETE_BOOK,
   EDIT_BOOK,
-  ADD_BOOK_IMAGE
+  ADD_BOOK_IMAGE,
+  CLEAR_BOOK
 } from "./types";
 
 //============================================
@@ -144,14 +145,19 @@ export const editBook = (_id, bookData) => async (dispatch) => {
 
 //============================================
 
+//! clear rendered book
 //! Get book by id
 export const getBook = (_id) => async (dispatch) => {
   try {
+    //======
+    dispatch({ type: CLEAR_BOOK });
+    //======
     const res = await axios.get(`/api/books/${_id}`);
     dispatch({
       type: GET_BOOK,
       payload: res.data
     });
+    //======
   } catch (error) {
     handleError(error, dispatch);
   }

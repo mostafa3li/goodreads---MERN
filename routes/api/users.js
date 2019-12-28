@@ -14,7 +14,12 @@ const auth = require("../../middleware/auth");
 // @access    Private
 router.get("/me", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id)
+      .lean()
+      .select("-password -tokens")
+      .populate({ path: "booksShelves" })
+      .exec();
+    // await user.populate("booksShelves").execPopulate();
     res.send(user);
   } catch (err) {
     res.status(500).send("Server Error");
@@ -23,7 +28,7 @@ router.get("/me", auth, async (req, res) => {
 
 //!======================================================================================
 
-// @route     GET /api/users/register
+// @route     POST /api/users/register
 // @desc      Register New User
 // @access    Public
 const validateUserRegistery = [

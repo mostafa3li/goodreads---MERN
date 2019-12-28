@@ -8,7 +8,8 @@ import {
   ADD_CATEGORY,
   DELETE_CATEGORY,
   EDIT_CATEGORY,
-  DELETE_RELATED_BOOKS
+  DELETE_RELATED_BOOKS,
+  CLEAR_CATEGORY
 } from "./types";
 
 //============================================
@@ -123,6 +124,7 @@ export const editCategory = (categoryData) => async (dispatch) => {
 //! Get category by id
 export const getCategory = (_id) => async (dispatch) => {
   try {
+    dispatch({ type: CLEAR_CATEGORY });
     const res = await axios.get(`/api/categories/${_id}`);
     dispatch({
       type: GET_CATEGORY,

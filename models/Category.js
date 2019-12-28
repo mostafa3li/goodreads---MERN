@@ -42,11 +42,11 @@ categorySchema.methods.toJSON = function() {
   // convert doc to raw data (JS Object) that can be manipulated.
   const categoryObject = category.toObject();
   // to not send duplicated id amongs the data sent to the user.
-  delete categoryObject.id;
-  categoryObject.books &&
-    categoryObject.books.map((book) => {
-      delete book.author.id;
-    });
+  // delete categoryObject.id;
+  // categoryObject.books &&
+  //   categoryObject.books.map((book) => {
+  //     delete book.author.id;
+  //   });
   return categoryObject;
 };
 

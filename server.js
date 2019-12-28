@@ -26,6 +26,7 @@ app.use("/api/categories", require("./routes/api/categories"));
 app.use("/api/authors", require("./routes/api/authors"));
 app.use("/api/books", require("./routes/api/books"));
 app.use("/api/users", require("./routes/api/users"));
+app.use("/api/users", require("./routes/api/userBooks"));
 
 //*======================================================================================
 

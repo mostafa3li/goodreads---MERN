@@ -5,6 +5,7 @@ import {
   EDIT_AUTHOR,
   DELETE_AUTHOR,
   AUTHORS_ERROR,
+  CLEAR_AUTHOR,
   CLEAR_AUTHORS,
   ADD_AUTHOR_IMAGE
 } from "../actions/types";
@@ -57,6 +58,13 @@ export default function(state = initialState, action) {
     case AUTHORS_ERROR:
       return { ...state, error: payload, loading: false };
 
+    case CLEAR_AUTHOR:
+      return {
+        ...state,
+        author: null,
+        loading: false
+      };
+
     case CLEAR_AUTHORS:
       return {
         ...state,
@@ -66,6 +74,6 @@ export default function(state = initialState, action) {
       };
 
     default:
-      return { ...state, author: null };
+      return { ...state };
   }
 }

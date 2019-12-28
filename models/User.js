@@ -44,6 +44,15 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// userSchema.virtual("booksShelves", {
+//   ref: "BookShelve",
+//   localField: "_id",
+//   foreignField: "user"
+// });
+
+// userSchema.set("toJSON", { virtuals: true });
+// userSchema.set("toObject", { virtuals: true });
+
 //*======================================================================================
 
 //! manipulate user data before sending it
@@ -51,9 +60,14 @@ userSchema.methods.toJSON = function() {
   const user = this;
   const userObject = user.toObject(); // raw data that can be manipulated.
   // to not send password and token amongs the data sent to the user.
+  /**
+   * delete userObject.id;
+   * ! will not be used if i'm using lean()
+   */
   delete userObject.password;
   delete userObject.tokens;
   delete userObject.avatar;
+
   return userObject;
 };
 
