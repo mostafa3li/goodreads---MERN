@@ -52,6 +52,7 @@ export const getUserBooks = () => async (dispatch) => {
 //============================================
 
 //! add or update user book shelve
+//! get user book after adding or updating shelve
 export const addBookShelve = (shelve, _id) => async (dispatch) => {
   const body = JSON.stringify({ shelve, book: _id });
   try {
@@ -62,7 +63,7 @@ export const addBookShelve = (shelve, _id) => async (dispatch) => {
       payload: { _id, updatedUserBook: res.data }
     });
     // ======
-    // dispatch(checkMatchedBook(_id));
+    dispatch(getUserBooks());
     // ======
   } catch (error) {
     handleError(error, dispatch);

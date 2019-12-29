@@ -96,7 +96,7 @@ router.get("/bookshelves", auth, async (req, res) => {
       .lean()
       .populate({
         path: "book",
-        select: "name category author",
+        select: "name category author hasPhoto",
         populate: {
           path: "author",
           select: "name"

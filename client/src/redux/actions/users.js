@@ -58,20 +58,21 @@ const handleError = (error, dispatch, login = false) => {
 //============================================
 
 //! Load User
+//! get user books
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
 
   try {
-    //=====
-    dispatch(getUserBooks());
-    //=====
     const res = await axios.get("/api/users/me");
     dispatch({
       type: USER_LOADED,
       payload: res.data
     });
+    //=====
+    dispatch(getUserBooks());
+    //=====
   } catch (error) {
     handleError(error, dispatch);
   }

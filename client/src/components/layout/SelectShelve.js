@@ -25,11 +25,11 @@ const SelectShelve = ({ addBookShelve, ...props }) => {
     <Fragment>
       {shelve !== "none" && !editMode ? (
         <div className="text-center">
-          <h5>
+          <h6>
             {(shelve === "want" && "Want to Read") ||
               (shelve === "currently" && "Currenly Reading") ||
               "Read"}
-          </h5>
+          </h6>
           <CardActionArea onClick={() => setEditMode(true)}>
             <EditIcon /> Edit Shelve
           </CardActionArea>
