@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 const AdminRoute = ({
   component: Component,
-  auth: { isAuthenticated, loading },
+  users: { isAuthenticated, user, loading },
   ...rest
 }) => (
   <Route
@@ -14,18 +14,21 @@ const AdminRoute = ({
       !isAuthenticated && !loading ? (
         <Redirect to="/admin" />
       ) : (
-        <Component {...props} />
+        (user && !user.isAdmin && <Redirect to="/" />) || (
+          <Component {...props} />
+        )
       )
     }
   ></Route>
 );
 
 AdminRoute.propTypes = {
-  auth: PropTypes.object.isRequired
+  users: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.users
+  users: state.users
 });
 
 export default connect(mapStateToProps)(AdminRoute);
+// user && !user.isAdmin && <Redirect to="/" />) ||

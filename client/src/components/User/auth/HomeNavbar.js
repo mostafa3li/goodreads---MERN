@@ -30,7 +30,7 @@ const LoginNavbar = (props) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={(e) => props.changeFormHandler(e)}
+              onClick={() => props.changeFormHandler()}
             >
               {(props.loginFormStatus && "Sign Up") || "Sign In"}
             </Button>

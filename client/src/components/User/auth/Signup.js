@@ -13,7 +13,10 @@ import { userRegister } from "../../../redux/actions/users";
 // Components
 import Login from "./Login";
 
-const HomeBanner = ({ userRegister, users: { error, user } }) => {
+const HomeBanner = ({
+  userRegister,
+  users: { isAuthenticated, user, error }
+}) => {
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -45,7 +48,8 @@ const HomeBanner = ({ userRegister, users: { error, user } }) => {
       .oneOf([Yup.ref("password"), null], "* Passwords must match")
   });
 
-  if (user || (error && error.status === 404)) {
+  // if (user || (error && error.status === 404)) {
+  if (user && !isAuthenticated) {
     return <Login userEmail={user.email} />;
   }
 

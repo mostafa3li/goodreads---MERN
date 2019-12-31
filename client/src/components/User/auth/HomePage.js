@@ -8,8 +8,7 @@ import Login from "./Login";
 const Home = () => {
   const [loginForm, setLoginForm] = useState(false);
 
-  const changeFormHandler = (e) => {
-    e.preventDefault();
+  const changeFormHandler = () => {
     setLoginForm(!loginForm);
   };
 
