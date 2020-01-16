@@ -11,7 +11,10 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import { addBookShelve } from "../../redux/actions/userBooks";
 
 const SelectShelve = ({ addBookShelve, ...props }) => {
-  const { bookId, shelve } = props;
+  const {
+    bookId,
+    bookShelve: { shelve }
+  } = props;
   const [editMode, setEditMode] = useState(false);
 
   const onChange = (e) => {
@@ -23,7 +26,7 @@ const SelectShelve = ({ addBookShelve, ...props }) => {
 
   return (
     <Fragment>
-      {shelve !== "none" && !editMode ? (
+      {shelve !== "no shelve" && !editMode ? (
         <div className="text-center">
           <h6>
             {(shelve === "want" && "Want to Read") ||
@@ -43,8 +46,8 @@ const SelectShelve = ({ addBookShelve, ...props }) => {
             onChange={(e) => onChange(e)}
             onClose={() => setEditMode(false)}
           >
-            {shelve === "none" && (
-              <MenuItem value={"none"} disabled>
+            {shelve === "no shelve" && (
+              <MenuItem value={"no shelve"} disabled>
                 Select Shelve
               </MenuItem>
             )}

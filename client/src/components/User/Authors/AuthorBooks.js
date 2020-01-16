@@ -35,16 +35,22 @@ const AuthorBooks = ({ userBooks: { userBooks }, author }) => {
                     <Link to={`/books/${book._id}`}>{book.name}</Link>
                   </h5>
                   {/* // TODO Rating & no. of ratings */}
-                  <BookRating disabled={true} />
+                  <BookRating
+                    bookId={book._id}
+                    bookShelve={{ shelve: "no shelve" }}
+                  />
                 </div>
                 <div className="m-2">
                   <SelectShelve
                     bookId={book._id}
-                    shelve={getBookShelve(book._id, userBooks)}
+                    bookShelve={getBookShelve(book._id, userBooks)}
                   />
                   <div className="text-center mt-2">
                     {/* //TODO Rating */}
-                    <BookRating />
+                    <BookRating
+                      bookId={book._id}
+                      bookShelve={getBookShelve(book._id, userBooks)}
+                    />
                   </div>
                 </div>
               </div>

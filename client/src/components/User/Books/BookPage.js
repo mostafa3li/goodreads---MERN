@@ -48,11 +48,14 @@ const BookPage = ({
                   {/* //! Book Shelve  */}
                   <SelectShelve
                     bookId={match.params.id}
-                    shelve={getBookShelve(match.params.id, userBooks)}
+                    bookShelve={getBookShelve(match.params.id, userBooks)}
                   />
                   <div className="text-center mt-3">
                     {/* //TODO Rating */}
-                    <BookRating />
+                    <BookRating
+                      bookId={match.params.id}
+                      bookShelve={getBookShelve(match.params.id, userBooks)}
+                    />
                   </div>
                 </div>
               </Card>
@@ -71,7 +74,7 @@ const BookPage = ({
                 </h6>
                 <div>
                   {/* //TODO Rating & no. of ratings */}
-                  <BookRating disabled={true} />
+                  <BookRating bookShelve={{ shelve: "no shelve" }} />
                 </div>
                 <p className="lead">
                   Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
@@ -94,13 +97,11 @@ const BookPage = ({
 
 BookPage.propTypes = {
   books: PropTypes.object.isRequired,
+  userBooks: PropTypes.object.isRequired,
   getBook: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
-  // console.log(
-  //   state.userBooks.userBook && state.userBooks.userBook[0].shelve[0]
-  // );
   return {
     books: state.books,
     userBooks: state.userBooks

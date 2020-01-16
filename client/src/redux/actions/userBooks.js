@@ -53,8 +53,15 @@ export const getUserBooks = () => async (dispatch) => {
 
 //! add or update user book shelve
 //! get user book after adding or updating shelve
-export const addBookShelve = (shelve, _id) => async (dispatch) => {
-  const body = JSON.stringify({ shelve, book: _id });
+export const addBookShelve = (shelve, _id, rating = null) => async (
+  dispatch
+) => {
+  let body = JSON.stringify({ shelve, book: _id });
+  if (rating === null) {
+    body = JSON.stringify({ shelve, book: _id });
+  } else {
+    body = JSON.stringify({ shelve, book: _id, rating });
+  }
   try {
     const res = await axios.post("/api/users/addBookShelve", body, config);
     // ======
@@ -63,7 +70,7 @@ export const addBookShelve = (shelve, _id) => async (dispatch) => {
       payload: { _id, updatedUserBook: res.data }
     });
     // ======
-    dispatch(getUserBooks());
+    if (!rating) dispatch(getUserBooks());
     // ======
   } catch (error) {
     handleError(error, dispatch);

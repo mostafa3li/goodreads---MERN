@@ -19,6 +19,11 @@ const bookShelveSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Book"
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 5
   }
 });
 

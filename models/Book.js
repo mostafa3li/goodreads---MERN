@@ -26,6 +26,9 @@ const bookSchema = new mongoose.Schema(
     },
     hasPhoto: {
       type: Boolean
+    },
+    avgRating: {
+      type: Number
     }
   },
   {

@@ -22,7 +22,11 @@ export default function(state = initialState, action) {
     case ADD_BOOK_SHELVE:
       let newUserBooks = state.userBooks.map((userBook) =>
         userBook.book._id === payload._id
-          ? { ...userBook, shelve: payload.updatedUserBook.shelve }
+          ? {
+              ...userBook,
+              shelve: payload.updatedUserBook.shelve,
+              rating: payload.updatedUserBook.rating
+            }
           : userBook
       );
       return {

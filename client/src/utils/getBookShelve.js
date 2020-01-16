@@ -1,13 +1,13 @@
 const getBookShelve = (bookId, userBooks) => {
   if (userBooks.length > 0) {
-    const book = userBooks.filter((userBook) => {
+    const bookShelve = userBooks.find((userBook) => {
       return userBook.book._id === bookId;
     });
-    if (book.length > 0) {
-      return book[0].shelve[0];
+    if (bookShelve) {
+      return { shelve: bookShelve.shelve[0], rating: bookShelve.rating };
     }
   }
-  return "none";
+  return { shelve: "no shelve", rating: "no rating" };
 };
 
 export default getBookShelve;
