@@ -61,11 +61,11 @@ const CategoryItem = ({
     categories.map((category) => (
       <tr key={category._id}>
         {/* //! ID */}
-        <td style={{ width: "20%" }} className="align-middle">
+        <td style={{ width: "25%" }} className="align-middle">
           {category._id.substr(-5)}
         </td>
         {/* //! Category, edit category */}
-        <td className="text-capitalize align-middle" style={{ width: "40%" }}>
+        <td className="text-capitalize align-middle" style={{ width: "50%" }}>
           {/*  if EditMode will render the value inside an input to edit it */}
           {editMode && categoryId === category._id ? (
             <TextField
@@ -82,38 +82,44 @@ const CategoryItem = ({
           )}
         </td>
         {/* //! actions edit/delete , submit/cancel edit */}
-        <td style={{ width: "40%" }} className="align-middle">
-          {editMode && categoryId === category._id ? (
-            <div className="mr-5 d-inline">
-              <button title="Cancel" onClick={() => cancelEditHandler()}>
-                &#10006;
-              </button>
+        <td style={{ width: "25%" }} className="align-middle overflow-hidden">
+          <div className="row">
+            {editMode && categoryId === category._id ? (
+              <div className="col-lg-6 my-1 align-self-center">
+                <button title="Cancel" onClick={() => cancelEditHandler()}>
+                  &#10006;
+                </button>
+                <button
+                  title="Submit"
+                  onClick={() =>
+                    submitEditHandler(category.category, {
+                      categoryName,
+                      _id: category._id
+                    })
+                  }
+                >
+                  &#10004;
+                </button>
+              </div>
+            ) : (
+              <div className="col-lg-6 my-1">
+                <button
+                  className="btn btn-info w-100"
+                  onClick={() => onEditHandler(category.category, category._id)}
+                >
+                  Edit
+                </button>
+              </div>
+            )}
+            <div className="col-lg-6 my-1">
               <button
-                title="Submit"
-                onClick={() =>
-                  submitEditHandler(category.category, {
-                    categoryName,
-                    _id: category._id
-                  })
-                }
+                className="btn btn-danger w-100"
+                onClick={() => deleteCategory(category._id)}
               >
-                &#10004;
+                Delete
               </button>
             </div>
-          ) : (
-            <button
-              className="btn btn-info mx-2"
-              onClick={() => onEditHandler(category.category, category._id)}
-            >
-              Edit
-            </button>
-          )}
-          <button
-            className="btn btn-danger mx-2"
-            onClick={() => deleteCategory(category._id)}
-          >
-            Delete
-          </button>
+          </div>
         </td>
       </tr>
     ))

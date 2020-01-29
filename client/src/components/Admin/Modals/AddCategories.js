@@ -40,30 +40,30 @@ const AddCategories = ({ addCategory, ...props }) => {
         <Modal.Body className="row">
           <form
             onSubmit={(e) => onSubmit(e)}
-            className="col-6 mx-auto text-center"
+            className="col-8 mx-auto text-center"
           >
-            <div>
+            <div className="col-lg-6 offset-lg-3 form-group">
               {/* //! Category Name */}
-              <FormControl variant="outlined">
+              <FormControl variant="outlined" className="w-100">
                 <InputLabel htmlFor="outlined-adornment-category">
-                  Category
+                  Category Name
                 </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-category"
                   type="text"
                   name="category"
                   value={category}
-                  labelWidth={65}
+                  labelWidth={113}
                   autoFocus
                   onChange={(e) => onChange(e)}
                 />
               </FormControl>
             </div>
-            <div className="mt-3">
+            <div>
               <FormControl>
                 <input
                   type="submit"
-                  value="add"
+                  value="Add Category"
                   className="btn btn-secondary"
                 />
               </FormControl>

@@ -8,7 +8,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FilledInput from "@material-ui/core/FilledInput";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
 // actions
@@ -55,19 +54,21 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
             onSubmit={(e) => onSubmit(e)}
             className="col-8 mx-auto text-center"
           >
-            <div className="row justify-content-around form-group">
+            <div className="row justify-content-around">
               {/* //! Book Name */}
-              <div className="col-6">
-                <TextField
-                  label="Book Name"
-                  variant="outlined"
-                  name="name"
-                  value={name}
-                  onChange={(e) => onChange(e)}
-                />
+              <div className="col-lg-6 form-group">
+                <FormControl className="w-100">
+                  <TextField
+                    label="Book Name"
+                    variant="outlined"
+                    name="name"
+                    value={name}
+                    onChange={(e) => onChange(e)}
+                  />
+                </FormControl>
               </div>
               {/* //! Category name */}
-              <div className="col-6">
+              <div className="col-lg-6 form-group">
                 <FormControl
                   variant="outlined"
                   className="w-100"
@@ -77,17 +78,19 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
                     Category Name
                   </InputLabel>
                   <Select
+                    native
                     labelId="demo-simple-select-outlined-label"
                     name="category"
                     value={category}
                     onChange={(e) => onChange(e)}
                     labelWidth={113}
                   >
+                    <option value="" />
                     {categories &&
                       categories.map((category) => (
-                        <MenuItem key={category._id} value={category._id}>
+                        <option key={category._id} value={category._id}>
                           {category.category}
-                        </MenuItem>
+                        </option>
                       ))}
                   </Select>
                   {categories.length === 0 && (
@@ -98,9 +101,9 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
                 </FormControl>
               </div>
             </div>
-            <div className="row justify-content-around form-group">
+            <div className="row justify-content-around">
               {/* //! Author name */}
-              <div className="col-6">
+              <div className="col-lg-6 form-group">
                 <FormControl
                   variant="outlined"
                   className="w-100"
@@ -110,17 +113,19 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
                     Author Name
                   </InputLabel>
                   <Select
+                    native
                     labelId="demo-simple-select-outlined-label"
                     name="author"
                     value={author}
                     onChange={(e) => onChange(e)}
                     labelWidth={95}
                   >
+                    <option value="" />
                     {authors &&
                       authors.map((author) => (
-                        <MenuItem key={author._id} value={author._id}>
+                        <option key={author._id} value={author._id}>
                           {author.name}
-                        </MenuItem>
+                        </option>
                       ))}
                   </Select>
                   {authors.length === 0 && (
@@ -129,7 +134,7 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
                 </FormControl>
               </div>
               {/* //! book image */}
-              <div className="col-6">
+              <div className="col-lg-6 form-group">
                 <FormControl>
                   <InputLabel shrink>Book Image</InputLabel>
                   <FilledInput
@@ -140,11 +145,11 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
                 </FormControl>
               </div>
             </div>
-            <div className="mt-3">
+            <div>
               <FormControl>
                 <input
                   type="submit"
-                  value="add"
+                  value="Add Book"
                   className="btn btn-secondary"
                 />
               </FormControl>

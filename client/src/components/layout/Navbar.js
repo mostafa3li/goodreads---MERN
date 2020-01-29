@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import NavItem from "react-bootstrap/NavItem";
 import Button from "@material-ui/core/Button";
+import { LinkContainer } from "react-router-bootstrap";
 
 // actions
 import { logout } from "../../redux/actions/users";
@@ -13,11 +15,30 @@ import { logout } from "../../redux/actions/users";
 import logo from "../../assets/logo.png";
 
 const DashboardNavbar = ({ user, logout }) => {
+  const routes = [
+    {
+      name: "Home",
+      path: "/"
+    },
+    {
+      name: "Categories",
+      path: "/categories"
+    },
+    {
+      name: "Books",
+      path: "/books"
+    },
+    {
+      name: "Authors",
+      path: "/authors"
+    }
+  ];
+
   return (
-    <Navbar className="home-nav" expand="md">
+    <Navbar className="home-nav" expand="md" collapseOnSelect>
       <div className="container">
-        <Navbar.Brand>
-          <NavLink to="/">
+        <LinkContainer to="/">
+          <Nav.Link eventKey={6} className="navbar-brand">
             <img
               src={logo}
               width="200"
@@ -25,30 +46,29 @@ const DashboardNavbar = ({ user, logout }) => {
               className="d-inline-block align-top"
               alt="Goodreads Logo"
             />
-          </NavLink>
-        </Navbar.Brand>
+          </Nav.Link>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Link to="/" className="nav-link">
-              Home
-            </Link>
-            <Link to="/categories" className="nav-link">
-              Categories
-            </Link>
-            <Link to="/books" className="nav-link">
-              Books
-            </Link>
-            <Link to="/authors" className="nav-link">
-              Authors
-            </Link>
+          <Nav className="mr-auto" activeKey="/">
+            {routes.map((route, key) => (
+              <Nav.Item key={key}>
+                <LinkContainer to={route.path} exact>
+                  <Nav.Link eventKey={key}>{route.name}</Nav.Link>
+                </LinkContainer>
+              </Nav.Item>
+            ))}
           </Nav>
           <Nav className="ml-auto">
             <div className="nav-profile">
               <ul className="list-unstyled m-0">
                 {user && user.isAdmin && (
                   <li>
-                    <Link to="/admin">Admin Dashboard</Link>
+                    <LinkContainer to="/admin">
+                      <Nav.Link to="/admin" className="nav-admin">
+                        Admin Dashboard
+                      </Nav.Link>
+                    </LinkContainer>
                   </li>
                 )}
                 <li>

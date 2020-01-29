@@ -119,7 +119,7 @@ const AuthorItem = ({
             )}
           </td>
           {/* //! First Name, edit first name */}
-          <td style={{ width: "15%" }} className="text-capitalize align-middle">
+          <td style={{ width: "20%" }} className="text-capitalize align-middle">
             {editMode && authorId === author._id ? (
               <Fragment>
                 <TextField
@@ -161,47 +161,53 @@ const AuthorItem = ({
             )}
           </td>
           {/* //! actions edit/delete, submit/cancel edit */}
-          <td style={{ width: "20%" }} className="align-middle">
-            {editMode && authorId === author._id ? (
-              <div className="mr-3 d-inline">
-                <button title="Cancel" onClick={() => cancelEditHandler()}>
-                  &#10006;
-                </button>
+          <td style={{ width: "20%" }} className="align-middle overflow-hidden">
+            <div className="row">
+              {editMode && authorId === author._id ? (
+                <div className="col-lg-6 my-1 align-self-center">
+                  <button title="Cancel" onClick={() => cancelEditHandler()}>
+                    &#10006;
+                  </button>
+                  <button
+                    title="Submit"
+                    onClick={() =>
+                      submitEditHandler({
+                        _id: author._id,
+                        oldFName: firstName,
+                        oldLName: lastName,
+                        oldBirthDate: author.birthDate.slice(0, 10)
+                      })
+                    }
+                  >
+                    &#10004;
+                  </button>
+                </div>
+              ) : (
+                <div className="col-lg-6 my-1">
+                  <button
+                    className="btn btn-info w-100"
+                    onClick={() =>
+                      onEditHandler(
+                        firstName,
+                        lastName,
+                        author.birthDate,
+                        author._id
+                      )
+                    }
+                  >
+                    Edit
+                  </button>
+                </div>
+              )}
+              <div className="col-lg-6 my-1">
                 <button
-                  title="Submit"
-                  onClick={() =>
-                    submitEditHandler({
-                      _id: author._id,
-                      oldFName: firstName,
-                      oldLName: lastName,
-                      oldBirthDate: author.birthDate.slice(0, 10)
-                    })
-                  }
+                  className="btn btn-danger w-100"
+                  onClick={() => deleteAuthor(author._id)}
                 >
-                  &#10004;
+                  Delete
                 </button>
               </div>
-            ) : (
-              <button
-                className="btn btn-info mx-2"
-                onClick={() =>
-                  onEditHandler(
-                    firstName,
-                    lastName,
-                    author.birthDate,
-                    author._id
-                  )
-                }
-              >
-                Edit
-              </button>
-            )}
-            <button
-              className="btn btn-danger mx-2"
-              onClick={() => deleteAuthor(author._id)}
-            >
-              Delete
-            </button>
+            </div>
           </td>
         </tr>
       );

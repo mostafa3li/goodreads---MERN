@@ -114,7 +114,7 @@ router.post(
       return res.status(404).send("Please Provide an Image");
     }
     const buffer = await sharp(req.file.buffer)
-      .resize({ width: 250, height: 350 })
+      .resize({ width: 250, height: 250 })
       .png()
       .toBuffer();
 

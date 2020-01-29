@@ -55,27 +55,35 @@ const AddAuthors = ({ addAuthor, ...props }) => {
             onSubmit={(e) => onSubmit(e)}
             className="col-8 mx-auto text-center"
           >
-            <div className="row justify-content-around form-group">
+            <div className="row justify-content-around">
               {/* //! First Name */}
-              <TextField
-                onChange={(e) => onChange(e)}
-                label="First Name"
-                variant="outlined"
-                name="fName"
-                value={fName}
-              />
+              <div className="col-lg-6 form-group">
+                <FormControl className="w-100">
+                  <TextField
+                    onChange={(e) => onChange(e)}
+                    label="First Name"
+                    variant="outlined"
+                    name="fName"
+                    value={fName}
+                  />
+                </FormControl>
+              </div>
               {/* //! Last Name */}
-              <TextField
-                onChange={(e) => onChange(e)}
-                label="Last Name"
-                variant="outlined"
-                name="lName"
-                value={lName}
-              />
+              <div className="col-lg-6 form-group">
+                <FormControl className="w-100">
+                  <TextField
+                    onChange={(e) => onChange(e)}
+                    label="Last Name"
+                    variant="outlined"
+                    name="lName"
+                    value={lName}
+                  />
+                </FormControl>
+              </div>
             </div>
-            <div className="row">
+            <div className="row justify-content-around">
               {/* //! Birthdate */}
-              <div className="col-6">
+              <div className="col-lg-6 form-group">
                 <FormControl className="w-100">
                   <InputLabel shrink>Date of Birth</InputLabel>
                   <FilledInput
@@ -88,7 +96,7 @@ const AddAuthors = ({ addAuthor, ...props }) => {
                 </FormControl>
               </div>
               {/* //! Author Image */}
-              <div className="col-6">
+              <div className="col-lg-6 form-group">
                 <FormControl>
                   <InputLabel shrink>Author Image</InputLabel>
                   <FilledInput
@@ -99,11 +107,11 @@ const AddAuthors = ({ addAuthor, ...props }) => {
                 </FormControl>
               </div>
             </div>
-            <div className="mt-3">
+            <div>
               <FormControl>
                 <input
                   type="submit"
-                  value="add"
+                  value="Add Author"
                   className="btn btn-secondary"
                 />
               </FormControl>

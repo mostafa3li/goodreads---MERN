@@ -116,7 +116,7 @@ const BookItem = ({
           )}
         </td>
         {/* //! Book, edit book */}
-        <td style={{ width: "15%" }} className="text-capitalize align-middle">
+        <td style={{ width: "20%" }} className="text-capitalize align-middle">
           {editMode && bookId === book._id ? (
             <Fragment>
               <TextField
@@ -153,7 +153,7 @@ const BookItem = ({
           )}
         </td>
         {/* //! Book's author, edit book's author */}
-        <td style={{ width: "15%" }} className="text-capitalize align-middle">
+        <td style={{ width: "20%" }} className="text-capitalize align-middle">
           {editMode && bookId === book._id ? (
             <FormControl className="w-100">
               <Select
@@ -175,42 +175,53 @@ const BookItem = ({
           )}
         </td>
         {/* //! actions edit/delete, submit/cancel edit */}
-        <td style={{ width: "20%" }} className="text-capitalize align-middle">
-          {editMode && bookId === book._id ? (
-            <div className="mr-3 d-inline">
-              <button title="Cancel" onClick={() => cancelEditHandler()}>
-                &#10006;
-              </button>
+        <td style={{ width: "20%" }} className="align-middle overflow-hidden">
+          <div className="row">
+            {editMode && bookId === book._id ? (
+              <div className="col-lg-6 my-1 align-self-center">
+                <button title="Cancel" onClick={() => cancelEditHandler()}>
+                  &#10006;
+                </button>
+                <button
+                  title="Submit"
+                  onClick={() =>
+                    submitEditHandler({
+                      _id: book._id,
+                      oldName: book.name,
+                      oldCategoryId: book.category._id,
+                      oldAuthorId: book.author._id
+                    })
+                  }
+                >
+                  &#10004;
+                </button>
+              </div>
+            ) : (
+              <div className="col-lg-6 my-1">
+                <button
+                  className="btn btn-info w-100"
+                  onClick={() =>
+                    onEditHandler(
+                      book.name,
+                      book.category,
+                      book.author,
+                      book._id
+                    )
+                  }
+                >
+                  Edit
+                </button>
+              </div>
+            )}
+            <div className="col-lg-6 my-1">
               <button
-                title="Submit"
-                onClick={() =>
-                  submitEditHandler({
-                    _id: book._id,
-                    oldName: book.name,
-                    oldCategoryId: book.category._id,
-                    oldAuthorId: book.author._id
-                  })
-                }
+                className="btn btn-danger w-100"
+                onClick={() => deleteBook(book._id)}
               >
-                &#10004;
+                Delete
               </button>
             </div>
-          ) : (
-            <button
-              className="btn btn-info mx-2"
-              onClick={() =>
-                onEditHandler(book.name, book.category, book.author, book._id)
-              }
-            >
-              Edit
-            </button>
-          )}
-          <button
-            className="btn btn-danger mx-2"
-            onClick={() => deleteBook(book._id)}
-          >
-            Delete
-          </button>
+          </div>
         </td>
       </tr>
     ))
