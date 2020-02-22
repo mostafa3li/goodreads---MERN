@@ -6,11 +6,14 @@ import {
   DELETE_CATEGORY,
   CATEGORIES_ERROR,
   CLEAR_CATEGORY,
-  CLEAR_CATEGORIES
+  CLEAR_CATEGORIES,
+  GET_ALL_CATEGORIES
 } from "../actions/types";
 
 const initialState = {
+  allCategories: [],
   categories: [],
+  categoriesCount: 0,
   category: null,
   loading: true,
   error: {}
@@ -20,8 +23,22 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case GET_ALL_CATEGORIES:
+      return {
+        ...state,
+        allCategories: payload.categories,
+        category: null,
+        loading: false
+      };
+
     case GET_CATEGORIES:
-      return { ...state, categories: payload, category: null, loading: false };
+      return {
+        ...state,
+        categories: payload.categories,
+        categoriesCount: payload.categoriesCount,
+        category: null,
+        loading: false
+      };
 
     case GET_CATEGORY:
       return { ...state, category: payload, loading: false };

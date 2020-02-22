@@ -12,7 +12,9 @@ import {
 } from "../actions/types";
 
 const initialState = {
+  allBooks: [],
   books: [],
+  booksCount: 0,
   book: null,
   loading: true,
   error: {}
@@ -23,7 +25,13 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_BOOKS:
-      return { ...state, books: payload, book: null, loading: false };
+      return {
+        ...state,
+        books: payload.books,
+        booksCount: payload.booksCount,
+        book: null,
+        loading: false
+      };
 
     case GET_BOOK:
       return { ...state, book: payload, loading: false };

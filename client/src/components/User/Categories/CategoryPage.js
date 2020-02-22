@@ -11,7 +11,7 @@ import Spinner from "../../layout/Spinner";
 // Components
 import BookItem from "../../layout/MuiCard";
 
-const CategoryItem = ({
+const CategoryPage = ({
   getCategory,
   categories: { category, loading },
   match
@@ -45,7 +45,7 @@ const CategoryItem = ({
   );
 };
 
-CategoryItem.propTypes = {
+CategoryPage.propTypes = {
   categories: PropTypes.object.isRequired,
   getCategory: PropTypes.func.isRequired
 };
@@ -54,4 +54,4 @@ const mapStateToProps = (state) => ({
   categories: state.categories
 });
 
-export default connect(mapStateToProps, { getCategory })(CategoryItem);
+export default connect(mapStateToProps, { getCategory })(CategoryPage);

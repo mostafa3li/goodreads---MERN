@@ -8,30 +8,56 @@ import { getCategories } from "../../../redux/actions/categories";
 
 // layout
 import AddCategoriesModal from "../Modals/AddCategories";
+import PaginationButtons from "../../layout/Pagination";
 
 // components
 import CategoryItem from "./CategoryItem";
 
-const Categories = ({ getCategories }) => {
+const Categories = ({ getCategories, categories: { categoriesCount } }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [params] = useState({
+    limit: 5,
+    skip: 0,
+    sortBy: "category"
+  });
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    getCategories();
-  }, [getCategories]);
+    getCategories(params);
+  }, [getCategories, params]);
+
+  const changePageHandler = (page) => {
+    if (currentPage !== page) {
+      const { limit } = params;
+      const skip = page * limit - limit;
+      getCategories({ ...params, skip });
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <div className="mx-3">
-      <div className="text-right container my-4">
-        <button
-          className="btn btn-primary"
-          onClick={() => setIsModalOpen(true)}
-        >
-          Add Category
-        </button>
-        <AddCategoriesModal
-          show={isModalOpen}
-          onHide={() => setIsModalOpen(false)}
-        />
+      <div className="row">
+        <div className="offset-lg-3 col-sm col">
+          {categoriesCount > params.limit && (
+            <PaginationButtons
+              pagesCount={Math.ceil(categoriesCount / params.limit)}
+              changePageHandler={changePageHandler}
+            />
+          )}
+        </div>
+        <div className="col-sm-3 col-5 text-right align-self-center">
+          <button
+            className="btn btn-primary"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add Category
+          </button>
+          <AddCategoriesModal
+            show={isModalOpen}
+            onHide={() => setIsModalOpen(false)}
+          />
+        </div>
       </div>
       <Table className="text-center" striped bordered hover responsive>
         <thead>
@@ -50,7 +76,12 @@ const Categories = ({ getCategories }) => {
 };
 
 Categories.probTypes = {
-  getCategories: PropTypes.func.isRequired
+  getCategories: PropTypes.func.isRequired,
+  categories: PropTypes.object.isRequired
 };
 
-export default connect(null, { getCategories })(Categories);
+const mapStateToProps = (state) => ({
+  categories: state.categories
+});
+
+export default connect(mapStateToProps, { getCategories })(Categories);

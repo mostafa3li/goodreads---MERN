@@ -7,11 +7,14 @@ import {
   AUTHORS_ERROR,
   CLEAR_AUTHOR,
   CLEAR_AUTHORS,
-  ADD_AUTHOR_IMAGE
+  ADD_AUTHOR_IMAGE,
+  GET_ALL_AUTHORS
 } from "../actions/types";
 
 const initialState = {
+  allAuthors: [],
   authors: [],
+  authorsCount: 0,
   author: null,
   loading: true,
   error: {}
@@ -21,8 +24,22 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case GET_ALL_AUTHORS:
+      return {
+        ...state,
+        allAuthors: payload.authors,
+        author: null,
+        loading: false
+      };
+
     case GET_AUTHORS:
-      return { ...state, authors: payload, author: null, loading: false };
+      return {
+        ...state,
+        authors: payload.authors,
+        authorsCount: payload.authorsCount,
+        author: null,
+        loading: false
+      };
 
     case GET_AUTHOR:
       return { ...state, author: payload, loading: false };

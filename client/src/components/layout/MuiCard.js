@@ -16,41 +16,45 @@ const MuiCard = (props) => {
 
   return (
     <div className="col-sm-6 col-md-4 col-lg-3">
-      <Card className="each-item">
-        {isBook ? (
-          // isBook
-          <CardMedia
-            style={{ height: "200px", width: "100%" }}
-            image={
-              (item.hasPhoto && `/api/books/${item._id}/photo`) || bookPhoto
-            }
-          />
-        ) : (
-          // isAuthor
-          <CardMedia
-            style={{ height: "200px", width: "100%" }}
-            image={
-              (item.hasAvatar && `/api/authors/${item._id}/avatar`) ||
-              authorAvatar
-            }
-          />
-        )}
-        <CardActions>
-          <Button size="small" color="primary" className="m-auto">
-            <Link to={`/${(isBook && "book") || "author"}s/${item._id}`}>
-              {item.name}
-            </Link>
-          </Button>
-        </CardActions>
-        {isBook && (
+      <Link to={`/${(isBook && "book") || "author"}s/${item._id}`}>
+        <Card className="each-item">
+          {isBook ? (
+            // isBook
+            <CardMedia
+              style={{ height: "200px", width: "100%" }}
+              image={
+                (item.hasPhoto && `/api/books/${item._id}/photo`) || bookPhoto
+              }
+            />
+          ) : (
+            // isAuthor
+            <CardMedia
+              style={{ height: "200px", width: "100%" }}
+              image={
+                (item.hasAvatar && `/api/authors/${item._id}/avatar`) ||
+                authorAvatar
+              }
+            />
+          )}
           <CardActions>
-            Author
             <Button size="small" color="primary" className="m-auto">
-              <Link to={`/authors/${item.author._id}`}>{item.author.name}</Link>
+              <Link to={`/${(isBook && "book") || "author"}s/${item._id}`}>
+                {item.name}
+              </Link>
             </Button>
           </CardActions>
-        )}
-      </Card>
+          {isBook && (
+            <CardActions>
+              Author
+              <Button size="small" color="primary" className="m-auto">
+                <Link to={`/authors/${item.author._id}`}>
+                  {item.author.name}
+                </Link>
+              </Button>
+            </CardActions>
+          )}
+        </Card>
+      </Link>
     </div>
   );
 };

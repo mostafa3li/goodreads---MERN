@@ -8,10 +8,28 @@ const auth = require("../../middleware/auth");
 
 // @route     GET /api/books
 // @desc      get all Books
+// ?limit=5&skip=5      (pagination)
+// ?sortBy=createdAt:asc  (sorting)
 // @access    Private
 router.get("/", auth, async (req, res) => {
+  const { limit, skip, sortBy } = req.query;
+  const sort = {};
+
+  if (sortBy) {
+    const parts = sortBy.split(":");
+    sort[parts[0]] = parts[1] === "desc" ? -1 : 1;
+  }
+  // sort: {
+  //   createdAt: -1 (desc),
+  //   name: 1 (asc)
+  // }
+
   try {
-    const books = await Book.find()
+    const books = await Book.find({}, null, {
+      limit: parseInt(limit),
+      skip: parseInt(skip),
+      sort
+    })
       .lean()
       .select("-photo")
       .populate({ path: "category", select: "category" })
@@ -21,7 +39,8 @@ router.get("/", auth, async (req, res) => {
     if (books.length === 0) {
       throw new Error("You have no books yet");
     }
-    res.send(books);
+    const booksCount = await Book.estimatedDocumentCount();
+    res.send({ books, booksCount });
   } catch (error) {
     res.status(500).send(error.message);
   }

@@ -16,14 +16,15 @@ import {
 
 // layout
 import Spinner from "../../layout/Spinner";
+import { Link } from "react-router-dom";
 
 const BookItem = ({
   deleteBook,
   editBook,
   addBookImage,
   books: { books, loading },
-  categories,
-  authors
+  categories: { allCategories },
+  authors: { allAuthors }
 }) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -127,7 +128,7 @@ const BookItem = ({
               />
             </Fragment>
           ) : (
-            book.name
+            <Link to={`/books/${book._id}`}>{book.name}</Link>
           )}
         </td>
         {/* //! Book's category, edit book's category */}
@@ -141,7 +142,7 @@ const BookItem = ({
                 onChange={(e) => onChange(e)}
                 labelWidth={113}
               >
-                {categories.map((category) => (
+                {allCategories.map((category) => (
                   <MenuItem key={category._id} value={category._id}>
                     {category.category}
                   </MenuItem>
@@ -149,7 +150,12 @@ const BookItem = ({
               </Select>
             </FormControl>
           ) : (
-            (book.category && book.category.category) || "N/A"
+            (book.category && (
+              <Link to={`categories/${book.category._id}`}>
+                {book.category.category}
+              </Link>
+            )) ||
+            "N/A"
           )}
         </td>
         {/* //! Book's author, edit book's author */}
@@ -163,7 +169,7 @@ const BookItem = ({
                 onChange={(e) => onChange(e)}
                 labelWidth={113}
               >
-                {authors.map((author) => (
+                {allAuthors.map((author) => (
                   <MenuItem key={author._id} value={author._id}>
                     {author.name}
                   </MenuItem>
@@ -171,7 +177,11 @@ const BookItem = ({
               </Select>
             </FormControl>
           ) : (
-            (book.author && book.author.name) || "N/A"
+            (
+              <Link to={`authors/${book.author._id}`}>
+                {book.author && book.author.name}
+              </Link>
+            ) || "N/A"
           )}
         </td>
         {/* //! actions edit/delete, submit/cancel edit */}
@@ -230,8 +240,8 @@ const BookItem = ({
 
 BookItem.propTypes = {
   books: PropTypes.object.isRequired,
-  categories: PropTypes.array.isRequired,
-  authors: PropTypes.array.isRequired,
+  categories: PropTypes.object.isRequired,
+  authors: PropTypes.object.isRequired,
   deleteBook: PropTypes.func.isRequired,
   editBook: PropTypes.func.isRequired,
   addBookImage: PropTypes.func.isRequired
@@ -239,8 +249,8 @@ BookItem.propTypes = {
 
 const mapStateToProps = (state) => ({
   books: state.books,
-  categories: state.categories.categories,
-  authors: state.authors.authors
+  categories: state.categories,
+  authors: state.authors
 });
 
 export default connect(mapStateToProps, { deleteBook, editBook, addBookImage })(

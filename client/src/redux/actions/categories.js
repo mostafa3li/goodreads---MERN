@@ -9,7 +9,8 @@ import {
   DELETE_CATEGORY,
   EDIT_CATEGORY,
   DELETE_RELATED_BOOKS,
-  CLEAR_CATEGORY
+  CLEAR_CATEGORY,
+  GET_ALL_CATEGORIES
 } from "./types";
 
 //============================================
@@ -42,9 +43,28 @@ const handleError = (error, dispatch) => {
 //============================================
 
 //! get all categories
-export const getCategories = () => async (dispatch) => {
+export const getAllCategories = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/categories");
+    const res = await axios.get(`/api/categories`);
+    dispatch({
+      type: GET_ALL_CATEGORIES,
+      payload: res.data
+    });
+  } catch (error) {
+    handleError(error, dispatch);
+  }
+};
+//============================================
+
+//! get current categories (paginated)
+export const getCategories = (
+  params = { limit: 0, skip: 0, sortBy: "category" }
+) => async (dispatch) => {
+  const { limit, skip, sortBy } = params;
+  try {
+    const res = await axios.get(
+      `/api/categories?limit=${limit}&skip=${skip}&sortBy=${sortBy}:asc`
+    );
     dispatch({
       type: GET_CATEGORIES,
       payload: res.data

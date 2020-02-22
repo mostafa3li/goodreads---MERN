@@ -42,9 +42,14 @@ const handleError = (error, dispatch) => {
 //============================================
 
 //! get all books
-export const getBooks = () => async (dispatch) => {
+export const getBooks = (
+  params = { limit: 0, skip: 0, sortBy: "name" }
+) => async (dispatch) => {
+  const { limit, skip, sortBy } = params;
   try {
-    const res = await axios.get("/api/books");
+    const res = await axios.get(
+      `/api/books?limit=${limit}&skip=${skip}&sortBy=${sortBy}:asc`
+    );
     dispatch({
       type: GET_BOOKS,
       payload: res.data

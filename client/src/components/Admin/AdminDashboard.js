@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 // layout
 import AdminTabs from "../layout/AdminTabs";
 import Spinner from "../layout/Spinner";
 
-const AdminDashboard = ({ users: { user } }) => {
+// actions
+import { getAllCategories } from "../../redux/actions/categories";
+import { getAllAuthors } from "../../redux/actions/authors";
+
+const AdminDashboard = ({
+  getAllCategories,
+  getAllAuthors,
+  users: { user }
+}) => {
+  useEffect(() => {
+    getAllCategories();
+    getAllAuthors();
+  }, [getAllCategories, getAllAuthors]);
+
   return (
     <main>
       <section>
@@ -17,7 +30,10 @@ const AdminDashboard = ({ users: { user } }) => {
 };
 
 const mapStateToProps = (state) => ({
-  users: state.users
+  users: state.users,
+  books: state.allBooks
 });
 
-export default connect(mapStateToProps)(AdminDashboard);
+export default connect(mapStateToProps, { getAllCategories, getAllAuthors })(
+  AdminDashboard
+);

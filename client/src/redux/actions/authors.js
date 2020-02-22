@@ -10,7 +10,8 @@ import {
   EDIT_AUTHOR,
   ADD_AUTHOR_IMAGE,
   DELETE_RELATED_BOOKS,
-  CLEAR_AUTHOR
+  CLEAR_AUTHOR,
+  GET_ALL_AUTHORS
 } from "./types";
 
 //============================================
@@ -43,9 +44,30 @@ const handleError = (error, dispatch) => {
 //============================================
 
 //! get all authors
-export const getAuthors = () => async (dispatch) => {
+export const getAllAuthors = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/authors");
+    const res = await axios.get(`/api/authors`);
+    console.log(res.data);
+    dispatch({
+      type: GET_ALL_AUTHORS,
+      payload: res.data
+    });
+  } catch (error) {
+    handleError(error, dispatch);
+  }
+};
+
+//============================================
+
+//! get current authors
+export const getAuthors = (
+  params = { limit: 0, skip: 0, sortBy: "name" }
+) => async (dispatch) => {
+  const { limit, skip, sortBy } = params;
+  try {
+    const res = await axios.get(
+      `/api/authors?limit=${limit}&skip=${skip}&sortBy=${sortBy}:asc`
+    );
     dispatch({
       type: GET_AUTHORS,
       payload: res.data

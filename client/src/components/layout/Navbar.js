@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, Route } from "react-router-dom";
+// import { Link, Route } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import NavItem from "react-bootstrap/NavItem";
+// import NavItem from "react-bootstrap/NavItem";
 import Button from "@material-ui/core/Button";
 import { LinkContainer } from "react-router-bootstrap";
 

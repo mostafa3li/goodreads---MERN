@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 
@@ -78,7 +79,7 @@ const CategoryItem = ({
             />
           ) : (
             //* else will render the value
-            category.category
+            <Link to={`/categories/${category._id}`}>{category.category}</Link>
           )}
         </td>
         {/* //! actions edit/delete , submit/cancel edit */}
