@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://mostafa:root@devconnector-qfkwt.mongodb.net/goodreads?retryWrites=true&w=majority",
-  "JWT_SECRET": "myGoodReadsSecretToken"
-}
