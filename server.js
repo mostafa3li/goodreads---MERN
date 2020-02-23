@@ -16,6 +16,7 @@ app.use(express.json());
 // app.get("/", (req, res) => res.send("API Running"));
 
 // Define Admin Routes
+app.use("/api/admin", require("./routes/faker/faker"));
 app.use("/adminAuth", require("./routes/admin/adminAuth"));
 app.use("/adminCategories", require("./routes/admin/adminCategories"));
 app.use("/adminAuthors", require("./routes/admin/adminAuthors"));
