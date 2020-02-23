@@ -13,7 +13,13 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 // actions
 import { addBook } from "../../../redux/actions/books";
 
-const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
+const AddBooks = ({
+  addBook,
+  books,
+  categories: { allCategories },
+  authors: { allAuthors },
+  ...props
+}) => {
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -72,7 +78,9 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
                 <FormControl
                   variant="outlined"
                   className="w-100"
-                  disabled={categories && categories.length > 0 ? false : true}
+                  disabled={
+                    allCategories && allCategories.length > 0 ? false : true
+                  }
                 >
                   <InputLabel id="demo-simple-select-outlined-label">
                     Category Name
@@ -86,14 +94,14 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
                     labelWidth={113}
                   >
                     <option value="" />
-                    {categories &&
-                      categories.map((category) => (
+                    {allCategories &&
+                      allCategories.map((category) => (
                         <option key={category._id} value={category._id}>
                           {category.category}
                         </option>
                       ))}
                   </Select>
-                  {categories.length === 0 && (
+                  {allCategories.length === 0 && (
                     <FormHelperText>
                       Disabled - No Categories Exist
                     </FormHelperText>
@@ -107,7 +115,7 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
                 <FormControl
                   variant="outlined"
                   className="w-100"
-                  disabled={authors && authors.length > 0 ? false : true}
+                  disabled={allAuthors && allAuthors.length > 0 ? false : true}
                 >
                   <InputLabel id="demo-simple-select-outlined-label">
                     Author Name
@@ -121,14 +129,14 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
                     labelWidth={95}
                   >
                     <option value="" />
-                    {authors &&
-                      authors.map((author) => (
+                    {allAuthors &&
+                      allAuthors.map((author) => (
                         <option key={author._id} value={author._id}>
                           {author.name}
                         </option>
                       ))}
                   </Select>
-                  {authors.length === 0 && (
+                  {allAuthors.length === 0 && (
                     <FormHelperText>Disabled - No Authors Exist</FormHelperText>
                   )}
                 </FormControl>
@@ -166,15 +174,15 @@ const AddBooks = ({ addBook, books, categories, authors, ...props }) => {
 
 AddBooks.propTypes = {
   books: PropTypes.array.isRequired,
-  categories: PropTypes.array.isRequired,
-  authors: PropTypes.array.isRequired,
+  categories: PropTypes.object.isRequired,
+  authors: PropTypes.object.isRequired,
   addBook: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   books: state.books.books,
-  categories: state.categories.categories,
-  authors: state.authors.authors
+  categories: state.categories,
+  authors: state.authors
 });
 
 export default connect(mapStateToProps, { addBook })(AddBooks);

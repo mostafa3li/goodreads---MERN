@@ -6,6 +6,7 @@ const sharp = require("sharp");
 
 const Author = require("../../models/Author");
 const Book = require("../../models/Book");
+const BookShelve = require("../../models/BookShelve");
 const auth = require("../../middleware/auth");
 
 //*======================================================================================
@@ -146,7 +147,13 @@ router.delete("/delete/:id", auth, async (req, res) => {
     if (!author) {
       res.status(404).send("Author not founded or You're not authenticated");
     }
+
+    // delete all books under this author from all users shelves
+    await BookShelve.deleteMany({ bookAuthor: id });
+
+    // delete all books under this author
     await Book.deleteMany({ author: id });
+
     res.send(
       `Author "${author.name}" & all related Books has been deleted Successfuly`
     );

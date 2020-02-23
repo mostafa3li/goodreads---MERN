@@ -63,14 +63,22 @@ const BookPage = ({
                 <h5 className="mt-0 text-capitalize">{book.name}</h5>
                 <h6 className="mt-0 text-capitalize">
                   By:{" "}
-                  <Link to={`/authors/${book.author._id}`}>
-                    {book.author.name}
-                  </Link>
+                  {book.author ? (
+                    <Link to={`/authors/${book.author._id}`}>
+                      {book.author.name}
+                    </Link>
+                  ) : (
+                    "N/A"
+                  )}
                 </h6>
                 <h6 className="mt-0 text-capitalize">
-                  <Link to={`/categories/${book.category._id}`}>
-                    {book.category.category}
-                  </Link>
+                  {book.category ? (
+                    <Link to={`/categories/${book.category._id}`}>
+                      {book.category.category}
+                    </Link>
+                  ) : (
+                    "N/A"
+                  )}
                 </h6>
                 <div>
                   {/* //TODO Rating & no. of ratings */}

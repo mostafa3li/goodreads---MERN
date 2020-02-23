@@ -13,6 +13,8 @@ import {
   GET_ALL_CATEGORIES
 } from "./types";
 
+import { getUserBooks } from "./userBooks";
+
 //============================================
 
 const config = {
@@ -45,7 +47,7 @@ const handleError = (error, dispatch) => {
 //! get all categories
 export const getAllCategories = () => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/categories`);
+    const res = await axios.get(`/api/categories?sortBy=category:asc`);
     dispatch({
       type: GET_ALL_CATEGORIES,
       payload: res.data
@@ -108,6 +110,9 @@ export const deleteCategory = (_id) => async (dispatch) => {
       type: DELETE_RELATED_BOOKS,
       payload: { relation: "category", _id }
     });
+    //=====
+    dispatch(getUserBooks());
+    //=====
     M.toast({
       html: res.data,
       classes: "alert bg-success text-white rounded"

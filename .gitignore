@@ -1,4 +1,4 @@
 node_modules/
-faker/
+# faker/
 config/default.json
-# config/production.json
+config/production.json

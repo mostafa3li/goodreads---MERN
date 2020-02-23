@@ -20,6 +20,16 @@ const bookShelveSchema = new mongoose.Schema({
     required: true,
     ref: "Book"
   },
+  bookCategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Category"
+  },
+  bookAuthor: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Author"
+  },
   rating: {
     type: Number,
     min: 1,

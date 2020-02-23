@@ -64,7 +64,14 @@ router.post("/addBookShelve", auth, validateBookShelve, async (req, res) => {
       return res.status(200).send(bookShelve);
     }
     // create new shelve
-    bookShelve = new BookShelve({ shelve, book, user: _id });
+    const bookData = await Book.findById({ _id: book });
+    bookShelve = new BookShelve({
+      shelve,
+      book,
+      user: _id,
+      bookCategory: bookData.category,
+      bookAuthor: bookData.author
+    });
     await bookShelve.save();
     const newBook = await BookShelve.find({ book, user: _id })
       .lean()

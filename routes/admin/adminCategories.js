@@ -4,6 +4,7 @@ const { check, validationResult } = require("express-validator");
 
 const Category = require("../../models/Category");
 const Book = require("../../models/Book");
+const BookShelve = require("../../models/BookShelve");
 const auth = require("../../middleware/auth");
 
 //*======================================================================================
@@ -104,7 +105,13 @@ router.delete("/delete/:id", auth, async (req, res) => {
     if (!category) {
       res.status(404).send("Category not founded or You're not authenticated");
     }
+
+    // delete all books under this category from all users shelves
+    await BookShelve.deleteMany({ bookCategory: id });
+
+    // delete all books under this category
     await Book.deleteMany({ category: id });
+
     res.send(
       `Category "${category.category}" & all related Books has been Deleted Successfuly`
     );

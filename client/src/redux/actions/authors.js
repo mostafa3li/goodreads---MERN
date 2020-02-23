@@ -14,6 +14,8 @@ import {
   GET_ALL_AUTHORS
 } from "./types";
 
+import { getUserBooks } from "./userBooks";
+
 //============================================
 
 const config = {
@@ -46,8 +48,7 @@ const handleError = (error, dispatch) => {
 //! get all authors
 export const getAllAuthors = () => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/authors`);
-    console.log(res.data);
+    const res = await axios.get(`/api/authors?sortBy=name:asc`);
     dispatch({
       type: GET_ALL_AUTHORS,
       payload: res.data
@@ -147,6 +148,9 @@ export const deleteAuthor = (_id) => async (dispatch) => {
       type: DELETE_RELATED_BOOKS,
       payload: { relation: "author", _id }
     });
+    //=====
+    dispatch(getUserBooks());
+    //=====
     M.toast({
       html: res.data,
       classes: "alert bg-success text-white rounded"

@@ -59,6 +59,13 @@ bookSchema.methods.toJSON = function() {
   return bookObject;
 };
 
+//===================================================================
+
+// bookSchema.pre("remove", { query: true, document: true }, function(doc, next) {
+//   console.log("Removing doc!", doc);
+//   next();
+// });
+
 //*======================================================================================
 
 const Book = mongoose.model("Book", bookSchema);
