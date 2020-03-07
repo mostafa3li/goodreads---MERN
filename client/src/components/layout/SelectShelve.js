@@ -12,14 +12,14 @@ import { addBookShelve } from "../../redux/actions/userBooks";
 
 const SelectShelve = ({ addBookShelve, ...props }) => {
   const {
-    bookId,
+    bookData: { bookId, category, author },
     bookShelve: { shelve }
   } = props;
   const [editMode, setEditMode] = useState(false);
 
   const onChange = (e) => {
     if (shelve !== e.target.value) {
-      addBookShelve(e.target.value, bookId);
+      addBookShelve(e.target.value, { bookId, category, author });
     }
     setEditMode(false);
   };

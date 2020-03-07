@@ -4,15 +4,22 @@ import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 
 // actions
-import { addBookShelve } from "../../redux/actions/userBooks";
+import { addBookRating } from "../../redux/actions/userBooks";
 
-const BookRating = ({ addBookShelve, ...props }) => {
+const BookRating = ({ addBookRating, ...props }) => {
   const {
     bookId,
     bookShelve: { shelve, rating }
   } = props;
 
-  const onChange = (e, newRating) => addBookShelve(shelve, bookId, newRating);
+  const onChange = (e, newRating) => {
+    // console.log("old", rating);
+    // console.log("new", newRating);
+    //! see why newRating === null when clicking the same rate
+    if (newRating !== null) {
+      addBookRating(newRating, bookId);
+    }
+  };
 
   return (
     <Box component="fieldset" borderColor="transparent">
@@ -27,4 +34,4 @@ const BookRating = ({ addBookShelve, ...props }) => {
   );
 };
 
-export default connect(null, { addBookShelve })(BookRating);
+export default connect(null, { addBookRating })(BookRating);

@@ -66,7 +66,11 @@ const BookItem = ({ userBooks, loading }) => {
           {/* //! Book Shelve */}
           <td style={{ width: "20%" }} className="align-middle">
             <SelectShelve
-              bookId={book._id}
+              bookData={{
+                bookId: book._id,
+                category: book.category,
+                author: book.author._id
+              }}
               bookShelve={getBookShelve(book._id, userBooks)}
             />
           </td>

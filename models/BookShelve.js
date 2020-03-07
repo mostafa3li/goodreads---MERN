@@ -20,12 +20,12 @@ const bookShelveSchema = new mongoose.Schema({
     required: true,
     ref: "Book"
   },
-  bookCategory: {
+  category: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Category"
   },
-  bookAuthor: {
+  author: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Author"

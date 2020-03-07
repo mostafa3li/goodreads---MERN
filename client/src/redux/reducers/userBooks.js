@@ -23,6 +23,7 @@ export default function(state = initialState, action) {
       let newUserBooks = state.userBooks.map((userBook) =>
         userBook.book._id === payload._id
           ? {
+              // existed (update)
               ...userBook,
               shelve: payload.updatedUserBook.shelve,
               rating: payload.updatedUserBook.rating
@@ -32,22 +33,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         userBooks:
-          JSON.stringify(state.userBooks) === JSON.stringify(newUserBooks)
-            ? [...state.userBooks, payload.updatedUserBook[0]]
-            : newUserBooks,
+          JSON.stringify(state.userBooks) === JSON.stringify(newUserBooks) // no change in userBooks
+            ? [...state.userBooks, payload.updatedUserBook] // add new shelve
+            : newUserBooks, // update existed shelve
         loading: false
       };
-
-    // case CHECK_MATCHING_BOOK:
-    //   const book = state.userBooks.filter(
-    //     (userBook) => userBook.book._id === payload
-    //   );
-    //   //! payload is book id
-    //   return {
-    //     ...state,
-    //     userBook: book.length > 0 ? book : null,
-    //     loading: false
-    //   };
 
     case USER_BOOKS_ERROR:
       return { ...state, error: payload, loading: false };

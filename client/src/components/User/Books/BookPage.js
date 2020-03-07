@@ -47,7 +47,11 @@ const BookPage = ({
                 <div className="m-2">
                   {/* //! Book Shelve  */}
                   <SelectShelve
-                    bookId={match.params.id}
+                    bookData={{
+                      bookId: match.params.id,
+                      category: book.category,
+                      author: book.author._id
+                    }}
                     bookShelve={getBookShelve(match.params.id, userBooks)}
                   />
                   <div className="text-center mt-3">

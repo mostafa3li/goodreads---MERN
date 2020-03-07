@@ -149,7 +149,7 @@ router.delete("/delete/:id", auth, async (req, res) => {
     }
 
     // delete all books under this author from all users shelves
-    await BookShelve.deleteMany({ bookAuthor: id });
+    await BookShelve.deleteMany({ author: id });
 
     // delete all books under this author
     await Book.deleteMany({ author: id });

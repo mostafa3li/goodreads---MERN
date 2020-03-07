@@ -19,10 +19,8 @@ const validateBookShelve = [
     .isIn(["currently", "want", "read"])
     .withMessage("shelve value must be 'currently', 'want' or 'read'"),
   check("book", "Book Id must be provided").exists(),
-  check("rating")
-    .optional()
-    .isIn(["1", "2", "3", "4", "5"])
-    .withMessage("Rating value must be within '1' to '5'")
+  check("category", "Category Id must be provided").exists(),
+  check("author", "Author Id must be provided").exists()
 ];
 router.post("/addBookShelve", auth, validateBookShelve, async (req, res) => {
   const errors = validationResult(req);
@@ -30,20 +28,85 @@ router.post("/addBookShelve", auth, validateBookShelve, async (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const { shelve, book, rating } = req.body;
+  const { shelve, book, category, author } = req.body;
   const { _id } = req.user;
 
   try {
-    const existedUser = await User.findById(_id);
-    if (!existedUser) {
+    // const existedUser = await User.findById(_id);
+    // if (!existedUser) {
+    //   return res.status(404).send({
+    //     errors: [
+    //       {
+    //         msg: "User is not Exist"
+    //       }
+    //     ]
+    //   });
+    // }
+    const existedBook = await Book.findById(book);
+    if (!existedBook) {
       return res.status(404).send({
         errors: [
           {
-            msg: "User is not Exist"
+            msg: "Book is not Exist"
           }
         ]
       });
     }
+
+    let existedBookShelve = await BookShelve.findOne({ user: _id, book });
+    if (existedBookShelve) {
+      // update book shelve
+      existedBookShelve.shelve = shelve;
+      await existedBookShelve.save();
+      return res.status(200).send(existedBookShelve);
+    }
+    // create new shelve
+    let newBookShelve = new BookShelve({
+      shelve,
+      book,
+      user: _id,
+      category,
+      author
+    });
+
+    await newBookShelve.save();
+
+    newBookShelve = await BookShelve.findOne({ book, user: _id })
+      .lean()
+      .populate({
+        path: "book",
+        select: "name category author"
+      })
+      .exec();
+
+    res.status(201).send(newBookShelve);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//!======================================================================================
+// @route     GET /api/users/addBookRating
+// @desc      Add Rating to book
+// @access    Private
+const validateBookRating = [
+  check("rating")
+    .exists()
+    .withMessage("Rating is required")
+    .isIn(["1", "2", "3", "4", "5"])
+    .withMessage("Rating value must be within '1' to '5'"),
+  check("book", "Book Id must be provided").exists()
+];
+router.post("/addBookRating", auth, validateBookRating, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json(errors);
+  }
+
+  const { rating, book } = req.body;
+  const { _id } = req.user;
+
+  try {
     const existedBook = await Book.findById(book);
     if (!existedBook) {
       return res.status(404).send({
@@ -56,31 +119,31 @@ router.post("/addBookShelve", auth, validateBookShelve, async (req, res) => {
     }
 
     let bookShelve = await BookShelve.findOne({ user: _id, book });
-    if (bookShelve) {
-      // update book shelve
-      bookShelve.shelve = shelve;
-      if (rating) bookShelve.rating = rating;
-      await bookShelve.save();
-      return res.status(200).send(bookShelve);
+
+    if (!bookShelve) {
+      return res.status(404).send({
+        errors: [
+          {
+            msg: "This Book is not in your shelve to rate"
+          }
+        ]
+      });
     }
-    // create new shelve
-    const bookData = await Book.findById({ _id: book });
-    bookShelve = new BookShelve({
-      shelve,
-      book,
-      user: _id,
-      bookCategory: bookData.category,
-      bookAuthor: bookData.author
-    });
+
+    // add or update book rating
+    bookShelve.rating = rating;
     await bookShelve.save();
-    const newBook = await BookShelve.find({ book, user: _id })
+    // res.status(200).send(bookShelve);
+
+    bookShelve = await BookShelve.findOne({ book, user: _id })
       .lean()
       .populate({
         path: "book",
         select: "name category author"
       })
       .exec();
-    res.status(201).send(newBook);
+
+    res.status(201).send(bookShelve);
   } catch (err) {
     res.status(500).send(err);
   }

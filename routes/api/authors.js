@@ -51,7 +51,7 @@ router.get("/:id", auth, async (req, res) => {
     const author = await Author.findOne({ _id: id })
       .lean()
       .select("-avatar")
-      .populate({ path: "books", select: "name hasPhoto" })
+      .populate({ path: "books", select: "name category hasPhoto" })
       .exec();
     if (!author) {
       return res.status(404).send({

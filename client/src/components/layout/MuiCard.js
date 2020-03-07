@@ -37,13 +37,17 @@ const MuiCard = (props) => {
             />
           )}
           <CardActions>
-            <Button size="small" color="primary" className="m-auto">
-              <Link
+            <Button
+              size="small"
+              color="primary"
+              className="m-auto text-truncate"
+            >
+              {/* <Link
                 className="text-truncate"
                 to={`/${(isBook && "book") || "author"}s/${item._id}`}
-              >
-                {item.name}
-              </Link>
+              > */}
+              {item.name}
+              {/* </Link> */}
             </Button>
           </CardActions>
           {isBook && (

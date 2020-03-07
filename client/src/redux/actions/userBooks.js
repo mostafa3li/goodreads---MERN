@@ -53,38 +53,44 @@ export const getUserBooks = () => async (dispatch) => {
 
 //! add or update user book shelve
 //! get user book after adding or updating shelve
-export const addBookShelve = (shelve, _id, rating = null) => async (
-  dispatch
-) => {
-  let body = JSON.stringify({ shelve, book: _id });
-  if (rating === null) {
-    body = JSON.stringify({ shelve, book: _id });
-  } else {
-    body = JSON.stringify({ shelve, book: _id, rating });
-  }
+export const addBookShelve = (shelve, bookData) => async (dispatch) => {
+  // shelve, book, category, author
+  const { bookId, category, author } = bookData;
+
+  let body = JSON.stringify({ shelve, book: bookId, category, author });
   try {
     const res = await axios.post("/api/users/addBookShelve", body, config);
     // ======
     dispatch({
       type: ADD_BOOK_SHELVE,
-      payload: { _id, updatedUserBook: res.data }
+      payload: { _id: bookId, updatedUserBook: res.data }
     });
     // ======
-    if (!rating) dispatch(getUserBooks());
+    dispatch(getUserBooks());
     // ======
   } catch (error) {
     handleError(error, dispatch);
   }
 };
 
-//! check matching book with user books to get shelve value
-// export const checkMatchedBook = (_id) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: CHECK_MATCHING_BOOK,
-//       payload: _id
-//     });
-//   } catch (error) {
-//     handleError(error, dispatch);
-//   }
-// };
+//============================================
+
+//! add or update user book rating
+export const addBookRating = (rating, bookId) => async (dispatch) => {
+  // rating, book
+
+  let body = JSON.stringify({ rating, book: bookId });
+  try {
+    const res = await axios.post("/api/users/addBookRating", body, config);
+    // ======
+    dispatch({
+      type: ADD_BOOK_SHELVE,
+      payload: { _id: bookId, updatedUserBook: res.data }
+    });
+    // ======
+    dispatch(getUserBooks());
+    // ======
+  } catch (error) {
+    handleError(error, dispatch);
+  }
+};

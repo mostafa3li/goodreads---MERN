@@ -42,7 +42,11 @@ const AuthorBooks = ({ userBooks: { userBooks }, author }) => {
                 </div>
                 <div className="m-2">
                   <SelectShelve
-                    bookId={book._id}
+                    bookData={{
+                      bookId: book._id,
+                      category: book.category,
+                      author: book.author
+                    }}
                     bookShelve={getBookShelve(book._id, userBooks)}
                   />
                   <div className="text-center mt-2">

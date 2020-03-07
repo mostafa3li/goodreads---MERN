@@ -107,7 +107,7 @@ router.delete("/delete/:id", auth, async (req, res) => {
     }
 
     // delete all books under this category from all users shelves
-    await BookShelve.deleteMany({ bookCategory: id });
+    await BookShelve.deleteMany({ category: id });
 
     // delete all books under this category
     await Book.deleteMany({ category: id });
