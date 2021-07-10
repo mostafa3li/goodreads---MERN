@@ -26,7 +26,7 @@ const BookItem = ({ userBooks, loading }) => {
   ) : (
     userBooks.map((userBook) => {
       const { book } = userBook;
-      return (
+      return book ? (
         <tr key={userBook._id}>
           {/* //! Book Cover Photo */}
           <td style={{ width: "20%" }} className="align-middle">
@@ -51,17 +51,11 @@ const BookItem = ({ userBooks, loading }) => {
           </td>
           {/* //! Avg Rating */}
           <td style={{ width: "15%" }} className="align-middle">
-            <BookRating
-              bookId={book._id}
-              bookShelve={{ shelve: "no shelve" }}
-            />
+            <BookRating bookId={book._id} bookShelve={{ shelve: "no shelve" }} />
           </td>
           {/* //! User Rating Rating */}
           <td style={{ width: "15%" }} className="align-middle">
-            <BookRating
-              bookId={book._id}
-              bookShelve={getBookShelve(book._id, userBooks)}
-            />
+            <BookRating bookId={book._id} bookShelve={getBookShelve(book._id, userBooks)} />
           </td>
           {/* //! Book Shelve */}
           <td style={{ width: "20%" }} className="align-middle">
@@ -69,10 +63,16 @@ const BookItem = ({ userBooks, loading }) => {
               bookData={{
                 bookId: book._id,
                 category: book.category,
-                author: book.author._id
+                author: book.author._id,
               }}
               bookShelve={getBookShelve(book._id, userBooks)}
             />
+          </td>
+        </tr>
+      ) : (
+        <tr key={userBook._id}>
+          <td colSpan="6">
+            <h4>This Book is Deleted!</h4>
           </td>
         </tr>
       );
@@ -82,7 +82,7 @@ const BookItem = ({ userBooks, loading }) => {
 
 BookItem.propTypes = {
   userBooks: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
 };
 
 export default BookItem;
