@@ -16,6 +16,12 @@ An Application simulates some features from the well-known books website [Goodre
 
 -------------------------------------------------------------------------------------
 
+
+### A live demo
+https://moali-goodreads.herokuapp.com/
+
+-------------------------------------------------------------------------------------
+
 ## Clone the Repo & Configure the App
 
 ### Install dependencies
