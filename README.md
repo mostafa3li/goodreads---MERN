@@ -18,7 +18,7 @@ An Application simulates some features from the well-known books website [Goodre
 
 
 ### A live demo
-<a href="https://moali-goodreads.herokuapp.com/" title="goodreads" target="_blank">moali-goodreads.herokuapp.com</a>
+<a href="https://moali-goodreads.herokuapp.com/" title="goodreads">moali-goodreads.herokuapp.com</a>
 
 -------------------------------------------------------------------------------------
 
