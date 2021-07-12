@@ -30,7 +30,7 @@ To install dependencies run the following commands
 ```sh
 npm install -D
 ```
-#### Fronend dependencies
+#### Frontend dependencies
 ```sh
 cd client/ && npm install
 ```
